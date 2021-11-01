@@ -17,23 +17,23 @@ namespace CategoryManegementTool.Client.Pages
 
         protected override void OnInitialized()
         {
-            var categories = ApplicationCacheService.AllCategories
+            var category = ApplicationCacheService.AllCategories
                 .Where(category => category.Id.ToString() == CategoryId)
-                .ToList();
+                .First();
 
-            if (categories.Count() > 0)
+            if (category != null)
             {
-                Category = categories[0];
+                Category = category;
             }
             else
             {
-                var deletedCategories = ApplicationCacheService.DeletedCategories
+                var deletedCategory = ApplicationCacheService.DeletedCategories
                 .Where(category => category.Id.ToString() == CategoryId)
-                .ToList();
+                .First();
 
-                if (deletedCategories.Count() > 0)
+                if (deletedCategory != null)
                 {
-                    Category = deletedCategories[0].Clone();
+                    Category = deletedCategory.Clone();
                 }
             }
         }

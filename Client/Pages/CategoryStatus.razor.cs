@@ -15,21 +15,21 @@ namespace CategoryManegementTool.Client.Pages
         public string CategoryId { get; set; }
 
         private Language MainLanguage { get; set; } = ApplicationCacheService.MainLanguage;
-        private Category Category { get; set; } = new();
+        private Category? Category { get; set; } = new();
 
-        private Category EditedCategory { get; set; } = new();
+        private Category? EditedCategory { get; set; } = new();
 
         private bool Hidden { get; set; } = true;
 
         private string Status { get; set; } = "New Added";
         protected override void OnInitialized()
         {
-            var originalCategories = ApplicationCacheService.OriginalCategories
+            var originalCategory = ApplicationCacheService.OriginalCategories
                 .Where(category => category.Id == CategoryId)
-                .ToList();
-            if (originalCategories.Count > 0)
+                .First();
+            if (originalCategory != null)
             {
-                Category = originalCategories.First();
+                Category = originalCategory;
                 Status = "Original";
                 GetStatus();
             }
@@ -37,23 +37,29 @@ namespace CategoryManegementTool.Client.Pages
 
         private void GetStatus() 
         {
-            var deletedCategories = ApplicationCacheService.DeletedCategories
-                .Where(category => category.Id == CategoryId)
-                .ToList();
-            if (deletedCategories.Count > 0)
+            if(ApplicationCacheService.DeletedCategories.Count() > 0)
             {
-                Status = "Deleted";
+                var deletedCategory = ApplicationCacheService.DeletedCategories
+                .Where(category => category.Id == CategoryId)
+                .First();
+                if (deletedCategory != null)
+                {
+                    Status = "Deleted";
+                }
             }
             else
             {
-                var editedCategories = ApplicationCacheService.EditedCategories
-                .Where(category => category.Id == CategoryId)
-                .ToList();
-                if (editedCategories.Count > 0)
+                if (ApplicationCacheService.EditedCategories.Count() > 0)
                 {
-                    EditedCategory = editedCategories.First();
-                    Hidden = false;
-                    Status = "Edited";
+                    var editedCategory = ApplicationCacheService.EditedCategories
+                    .Where(category => category.Id == CategoryId)
+                    .First();
+                    if (editedCategory != null)
+                    {
+                        EditedCategory = editedCategory;
+                        Hidden = false;
+                        Status = "Edited";
+                    }
                 }
             }
         }

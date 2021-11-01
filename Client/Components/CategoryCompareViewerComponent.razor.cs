@@ -39,6 +39,7 @@ namespace CategoryManegementTool.Client.Components
                 .ToList();
 
             AddedCategories = ApplicationCacheService.AddedCategories
+                .Where(category => !ApplicationCacheService.EditedCategories.Contains(category))
                 .Where(category => !ApplicationCacheService.DeletedCategories.Contains(category))
                 .ToList();
         }

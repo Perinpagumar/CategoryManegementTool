@@ -7,13 +7,13 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">CategoryID</span>
         </div>
-        <input type="text" class="form-control" disabled>
+        <input type="text" class="form-control" @bind="@CategoryId" disabled>
     </div>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Status</span>
         </div>
-        <input type="text" class="form-control" disabled>
+        <input type="text" class="form-control" @bind="@Status" disabled>
     </div>
     <a href="/categories" class="btn btn-primary float-right" style="margin-right:10px">Return</a>
     <br />

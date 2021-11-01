@@ -43,7 +43,8 @@ namespace CategoryManegementTool.Client.Pages
             "LanguageEntry Text can't be empty!",
             "LanguageEntry Language can't be Undefined!",
             "Dropdown Selects can't be Undefined!",
-            "RegexDescriptions can't be emty if ValidationRegex is not null!" });
+            "RegexDescriptions can't be emty if ValidationRegex is not null!",
+            "PresentatioType can't be Undefined"});
 
         protected override async Task OnInitializedAsync()
         {
@@ -61,12 +62,12 @@ namespace CategoryManegementTool.Client.Pages
             }
             else
             {
-                var categories = ApplicationCacheService.AllCategories
+                var category = ApplicationCacheService.AllCategories
                 .Where(category => category.Id.ToString() == CategoryId)
-                .ToList();
-                if (categories != null)
+                .First();
+                if (category != null)
                 {
-                    ApplicationCacheService.SelectedCategory = categories.First().Clone();
+                    ApplicationCacheService.SelectedCategory = category.Clone();
                 }
             }
 
@@ -127,15 +128,18 @@ namespace CategoryManegementTool.Client.Pages
                 {
                     var category = ApplicationCacheService.AllCategories
                         .Where(category => category.Id == Category.Id)
-                        .ToList().First();
+                        .First();
                     ApplicationCacheService.AllCategories.Remove(category);
                     ApplicationCacheService.AllCategories.Add(Category);
-                    var editedCategory = ApplicationCacheService.EditedCategories
-                        .Where(category => category.Id == Category.Id)
-                        .ToList();
-                    if(editedCategory.Count() != 0)
+                    if(ApplicationCacheService.EditedCategories.Count() > 0)
                     {
-                        ApplicationCacheService.EditedCategories.Remove(editedCategory.First());
+                        var editedCategory = ApplicationCacheService.EditedCategories
+                        .Where(category => category.Id == Category.Id)
+                        .First();
+                        if (editedCategory != null)
+                        {
+                            ApplicationCacheService.EditedCategories.Remove(editedCategory);
+                        }
                     }
                     ApplicationCacheService.EditedCategories.Add(Category);
                 }
