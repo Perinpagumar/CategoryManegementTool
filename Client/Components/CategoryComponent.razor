@@ -1,0 +1,7 @@
+﻿<label>@Category.GetTextFromLanguage(@MainLanguage)</label>
+<a href="/categories/view/@Category.Id" class="btn btn-primary" style="margin-left:10px">View</a>
+<a href="/categories/edit/@Category.Id" class="btn btn-primary" style="margin-left:10px" hidden="@IsNotMain">Edit</a>
+<a href="/categories/add/@Category.Id" class="btn btn-primary" style="margin-left:10px" hidden="@IsNotMain">Add</a>
+<a href="/categories/comparer/@Category.Id" class="btn btn-primary" style="margin-left:10px">Status/Compare</a>
+<a @onclick="@RestoreCategoryAsync" class="btn btn-primary" style="margin-left:10px" hidden="@GetIsRestore()">Restore</a>
+<a @onclick="@DeleteAsync" class="btn btn-primary" style="margin-left:10px" hidden="@GetIsDelete()">Delete</a>

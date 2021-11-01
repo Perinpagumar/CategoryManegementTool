@@ -1,0 +1,56 @@
+﻿@page "/categories"
+@using CategoryManegementTool.Client.Components
+<div class="input-group">
+    <h3 style="margin-right:20px">Category Management Tool</h3>
+    <input @bind="@Search" type="text">
+    <a @onclick="FilterCategoies" class="btn btn-primary" style="margin-right:10px">Search</a>
+    <select @bind="@List" @onclick="ChageList" style="margin-right:10px">
+        <option>All</option>
+        <option>Edited</option>
+        <option>Added</option>
+        <option>Deleted</option>
+        <option>Compare</option>
+    </select>
+    <a href="/categories/add/@newRootCategory" class="btn btn-primary" style="margin-right:10px">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+        </svg>
+    </a>
+</div>
+<hr />
+<div hidden="@IsNotMain">
+    <CategoryTreeViewerComponent AllCategories="Categories"
+                                 LevelCategories="GetRootCategories()"
+                                 Level="0"
+                                 RenderWholePage="@RenderWholePage"
+                                 IsDeleted="@IsDeleted"
+                                 IsNotMain="@IsNotMain">
+    </CategoryTreeViewerComponent>
+</div>
+<div hidden="@GetIsNotMain()">
+    @foreach (var category in Categories)
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="from-group row">
+                    <CategoryComponent Category="category"
+                                       RenderWholePage="@RenderWholePage"
+                                       IsDeleted="@IsDeleted"
+                                       IsNotMain="@IsNotMain">
+                    </CategoryComponent>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@if (IsCompare)
+{
+    <CategoryCompareViewerComponent RenderWholePage="@RenderWholePage"
+                                       IsDeleted="@IsDeleted"
+                                       IsNotMain="@IsNotMain">
+    </CategoryCompareViewerComponent>
+}
+
+<hr />
+<a href="/categories/export/@List" class="btn btn-primary float-right">Export</a>
+<a href="/categories/import" class="btn btn-primary float-right" style="margin-right:20px">Import</a>

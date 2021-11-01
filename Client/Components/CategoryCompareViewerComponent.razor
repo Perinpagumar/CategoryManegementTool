@@ -1,0 +1,57 @@
+﻿@foreach (var category in Categories)
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="from-group row">
+                <CategoryComponent Category="category"
+                                   RenderWholePage="@RenderWholePage"
+                                   IsDeleted="@IsDeleted"
+                                   IsNotMain="@IsNotMain">
+                </CategoryComponent>
+            </div>
+        </div>
+    </div>
+}
+@foreach (var category in EditedCategories)
+{
+    <div class="card" style="background-color:yellow">
+        <div class="card-body">
+            <div class="from-group row">
+                <CategoryComponent Category="category"
+                                   RenderWholePage="@RenderWholePage"
+                                   IsDeleted="@IsDeleted"
+                                   IsNotMain="@IsNotMain">
+                </CategoryComponent>
+            </div>
+        </div>
+    </div>
+}
+@foreach (var category in AddedCategories)
+{
+    <div class="card" style="background-color:green">
+        <div class="card-body">
+            <div class="from-group row">
+                <CategoryComponent Category="category"
+                                   RenderWholePage="@RenderWholePage"
+                                   IsDeleted="@IsDeleted"
+                                   IsNotMain="@IsNotMain">
+                </CategoryComponent>
+            </div>
+        </div>
+    </div>
+}
+@foreach (var category in DeletedCategories)
+{
+    <div class="card" style="background-color:red">
+        <div class="card-body">
+            <div class="from-group row">
+                <CategoryComponent Category="category"
+                                   RenderWholePage="@RenderWholePage"
+                                   IsDeleted="@IsDeleted"
+                                   IsNotMain="@IsNotMain">
+                </CategoryComponent>
+            </div>
+        </div>
+    </div>
+}
+

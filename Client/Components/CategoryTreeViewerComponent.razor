@@ -1,0 +1,21 @@
+﻿@foreach (var category in @LevelCategories)
+{
+    <div class="card" style="margin-left:@(Level * 20)px">
+        <div class="card-body">
+            <div class="from-group row">
+                <CategoryComponent Category="@category" 
+                                   RenderWholePage="@RenderWholePage"
+                                   IsDeleted="@IsDeleted"
+                                   IsNotMain="@IsNotMain">
+                </CategoryComponent>
+            </div>
+        </div>
+    </div>
+    <CategoryTreeViewerComponent AllCategories="AllCategories"
+                                 LevelCategories="GetChilldCategories(category.Id.ToString())"
+                                 Level="@(Level + 1)"
+                                 RenderWholePage="@RenderWholePage"
+                                 IsDeleted="@IsDeleted"
+                                 IsNotMain="@IsNotMain">
+    </CategoryTreeViewerComponent>
+}

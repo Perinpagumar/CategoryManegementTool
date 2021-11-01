@@ -1,0 +1,8 @@
+﻿@page "/categories/import"
+
+<h3>Import</h3>
+<textarea @bind="InputJson" class="col-12" rows="25"></textarea>
+<br>
+<button @onclick="ImportCategories" class="float-lg-right">Continue</button>
+<InputFile OnChange="SingleUpload" class="float-lg-right" />
+

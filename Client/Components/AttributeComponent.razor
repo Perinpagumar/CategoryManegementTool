@@ -1,0 +1,126 @@
+﻿<EditForm Model="@CategoryAttribute">
+    <h5 class="card-header">
+        <label>@CategoryAttribute.Id</label>
+        <a @onclick="DeleteAsync" class="btn btn-primary float-lg-right" hidden="@Disabled">Delete</a>
+    </h5>
+    <div class="card-body">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">ID</span>
+            </div>
+            <input type="text" class="form-control" @bind="@CategoryAttribute.Id" disabled>
+        </div>
+        <hr />
+        <label>LanguageEntries</label>
+        <a @onclick="@AddLanguageEntry" class="btn btn-primary" hidden="@Disabled">Add</a>
+        @if (CategoryAttribute.LanguageEntries != null)
+        {
+            @foreach (var laguageEntry in CategoryAttribute.LanguageEntries)
+            {
+                <div class="card">
+                    <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id.ToString()" LanguageEntry="laguageEntry" Disabled="@Disabled" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
+                </div>
+            }
+        }
+        <hr />
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">DataType</span>
+            </div>
+            <select class="form-control" @bind="@CategoryAttribute.DataType" disabled="@Disabled">
+
+                @foreach (var dataType in DataTypes)
+                {
+                    <option value="@dataType">@dataType</option>
+                }
+
+            </select>
+        </div>
+        <br />
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">ValidationRegex</span>
+            </div>
+            <input type="text" class="form-control" @bind="@CategoryAttribute.ValidationRegex" disabled="@Disabled">
+        </div>
+        <hr />
+        <label>RegexDescriptions</label>
+        <a @onclick="@AddRegexDescription" class="btn btn-primary" hidden="@Disabled">Add</a>
+        @if (CategoryAttribute.RegexDescriptions != null)
+        {
+            @foreach (var regexDescription in CategoryAttribute.RegexDescriptions)
+            {
+                <div class="card">
+                    <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id.ToString()" LanguageEntry="regexDescription" Disabled="@Disabled" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
+                </div>
+            }
+        }
+        <hr />
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">IsIncludedInPreview</span>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" @bind="@CategoryAttribute.IsIncludedInPreview" disabled="@Disabled" style="height:30px;width:30px">
+            </div>
+        </div>
+        <br />
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">UnitType</span>
+            </div>
+            <select class="form-control" @bind="@CategoryAttribute.UnitType" disabled="@Disabled">
+
+                @foreach (var unitType in UnitTypes)
+                {
+                    <option value="@unitType">@unitType</option>
+                }
+
+            </select>
+        </div>
+        <br />
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">IsRequired</span>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" @bind="@CategoryAttribute.IsRequired" disabled="@Disabled" style="height:30px;width:30px">
+            </div>
+        </div>
+        <br />
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">PresentationType</span>
+            </div>
+            <select class="form-control" @bind="@CategoryAttribute.PresentationType" disabled="@Disabled">
+
+                @foreach (var presentationType in PresentationTypes)
+                {
+                    <option value="@presentationType">@presentationType</option>
+                }
+
+            </select>
+        </div>
+        <br />
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">IsFilter</span>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" @bind="@CategoryAttribute.IsFilter" disabled="@Disabled" style="height:30px;width:30px">
+            </div>
+        </div>
+        <hr />
+        <label>PossibleValues</label>
+        <a @onclick="@AddPossibleValue" class="btn btn-primary" hidden="@Disabled">Add</a>
+        @if (CategoryAttribute.PossibleValues != null)
+        {
+            @foreach (var possibleValue in CategoryAttribute.PossibleValues)
+            {
+                <div class="card">
+                    <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id.ToString()" LanguageEntry="possibleValue" Disabled="@Disabled" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
+                </div>
+            }
+        }
+    </div>
+</EditForm>
