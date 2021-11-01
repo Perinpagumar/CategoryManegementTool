@@ -59,9 +59,15 @@ namespace CategoryManegementTool.Client.Pages
                         EditedCategory = editedCategory;
                         Hidden = false;
                         Status = "Edited";
+                        GetDifferences();
                     }
                 }
             }
+        }
+
+        private void GetDifferences()
+        {
+            
         }
     }
 }

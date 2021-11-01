@@ -49,7 +49,7 @@ namespace CategoryManegementTool.Client.Pages
                     Categories = ApplicationCacheService.DeletedCategories;
                     break;
             }
-            await ExportCategories();
+                await ExportCategories();
         }
         private async Task ExportCategories()
         {
