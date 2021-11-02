@@ -34,15 +34,12 @@
                     </div>
                     <br />
                     <label>LanguageEntries</label>
-                    @if (Category.LanguageEntries != null)
-                    {
                         @foreach (var laguageEntry in Category.LanguageEntries)
                         {
                             <div class="card">
                                 <LanguageEntryViewComponent LanguageEntry="laguageEntry" Disabled="true"></LanguageEntryViewComponent>
                             </div>
                         }
-                    }
                     <br />
                 </div>
             </div>
@@ -60,15 +57,12 @@
                     </div>
                     <br />
                     <label>LanguageEntries</label>
-                    @if (EditedCategory.LanguageEntries != null)
-                    {
                         @foreach (var laguageEntry in EditedCategory.LanguageEntries)
                         {
                             <div class="card">
                                 <LanguageEntryViewComponent LanguageEntry="laguageEntry" Disabled="true"></LanguageEntryViewComponent>
                             </div>
                         }
-                    }
                     <br />
                 </div>
             </div>

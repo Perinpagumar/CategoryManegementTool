@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  categorymanegementtool.client:
+    image: ${DOCKER_REGISTRY-}categorymanegementtoolclient
+    build:
+      context: .
+      dockerfile: Client/Dockerfile

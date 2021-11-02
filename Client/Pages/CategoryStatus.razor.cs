@@ -15,9 +15,9 @@ namespace CategoryManegementTool.Client.Pages
         public string CategoryId { get; set; }
 
         private Language MainLanguage { get; set; } = ApplicationCacheService.MainLanguage;
-        private Category? Category { get; set; } = new();
+        private Category Category { get; set; } = new();
 
-        private Category? EditedCategory { get; set; } = new();
+        private Category EditedCategory { get; set; } = new();
 
         private bool Hidden { get; set; } = true;
 
@@ -41,8 +41,8 @@ namespace CategoryManegementTool.Client.Pages
             {
                 var deletedCategory = ApplicationCacheService.DeletedCategories
                 .Where(category => category.Id == CategoryId)
-                .First();
-                if (deletedCategory != null)
+                .ToList();
+                if (deletedCategory.Count() > 0)
                 {
                     Status = "Deleted";
                 }
@@ -53,10 +53,10 @@ namespace CategoryManegementTool.Client.Pages
                 {
                     var editedCategory = ApplicationCacheService.EditedCategories
                     .Where(category => category.Id == CategoryId)
-                    .First();
-                    if (editedCategory != null)
+                    .ToList();
+                    if (editedCategory.Count() > 0)
                     {
-                        EditedCategory = editedCategory;
+                        EditedCategory = editedCategory.First();
                         Hidden = false;
                         Status = "Edited";
                         GetDifferences();
