@@ -95,10 +95,10 @@ namespace CategoryManegementTool.Client.Pages
 
         private void ToParentCategory() 
         {
-            if(!IsAdd)
+            if(!IsAdd && Category.ParrentCategoryId != null)
             {
                 NavigationManager.NavigateTo("/categories/edit/" + Category.ParrentCategoryId);
-                OnInitializedAsync();
+                _ = OnInitializedAsync();
                 RenderWholePage();
             }
         }
