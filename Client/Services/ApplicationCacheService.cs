@@ -17,5 +17,16 @@ namespace CategoryManegementTool.Client.Services
 
         public static Language MainLanguage { get; set; } = Language.German;
         public static Category SelectedCategory { get; set; } = new();
+
+        public static List<Category> GetCategoriesFromAllLists()
+        {
+            var fromAll = new List<Category>();
+            fromAll.AddRange(OriginalCategories);
+            fromAll.AddRange(AllCategories);
+            fromAll.AddRange(EditedCategories);
+            fromAll.AddRange(AddedCategories);
+            fromAll.AddRange(DeletedCategories);
+            return fromAll;
+        }
     }
 }

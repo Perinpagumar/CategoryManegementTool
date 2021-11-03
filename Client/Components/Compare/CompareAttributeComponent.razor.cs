@@ -39,7 +39,7 @@ namespace CategoryManegementTool.Client.Components
             return edited;
         }
 
-        private ConsoleColor PossibleValuesEdited()
+        private ConsoleColor PossibleValuesEdited(List<LanguageEntry> originalLanguageEntries, List<LanguageEntry> editedLanguageEntries)
         {
             if(Original.PossibleValues.Count() == Edited.PossibleValues.Count() && Original.PossibleValues.Count() > 0 && Original.PossibleValues.Count() > 0)
             {

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CategoryManegementTool.Client.Pages
@@ -18,8 +19,16 @@ namespace CategoryManegementTool.Client.Pages
 
         private void ImportCategories()
         {
-            ApplicationCacheService.OriginalCategories.AddRange(JsonConvert.DeserializeObject<List<Category>>(InputJson));
-            ApplicationCacheService.AllCategories.AddRange(JsonConvert.DeserializeObject<List<Category>>(InputJson));
+            var newCategories = JsonConvert.DeserializeObject<List<Category>>(InputJson);
+            var allCategories = ApplicationCacheService.GetCategoriesFromAllLists();
+            foreach(var category in newCategories)
+            {
+                if(!allCategories.Where(c => c.Id == category.Id).Any())
+                {
+                    ApplicationCacheService.OriginalCategories.Add(category);
+                    ApplicationCacheService.AllCategories.Add(category);
+                }
+            }
             NavigationManager.NavigateTo("/categories");
         }
 

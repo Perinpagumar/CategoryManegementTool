@@ -15,6 +15,9 @@ namespace CategoryManegementTool.Client.Components
         [Parameter]
         public LanguageEntry Edited { get; set; } = new();
 
+        [Parameter]
+        public bool IsPossibleValue { get; set; } = false;
+
         private ConsoleColor TextIsEdited()
         {
             if(Original.Text == Edited.Text)

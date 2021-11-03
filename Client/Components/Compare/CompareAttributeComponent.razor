@@ -122,7 +122,7 @@
     {
         @foreach (var possibleValue in Edited.PossibleValues)
         {
-            <div class="card" style="background-color:@PossibleValuesEdited()">
+            <div class="card">
                 <LanguageEntryViewComponent AttributeId="@Edited.Id.ToString()" LanguageEntry="possibleValue" Disabled="true"></LanguageEntryViewComponent>
             </div>
         }
