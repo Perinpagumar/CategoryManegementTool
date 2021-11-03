@@ -69,9 +69,18 @@ namespace CategoryManegementTool.Shared.Models
 
         private bool LanguageEntriesAreValid()
         {
-            var language = LanguageEntries.Select(languageEntry => languageEntry.Language);
-
-            foreach(var languagEntry in LanguageEntries) 
+            var entryLanguages = LanguageEntries.Select(languageEntry => languageEntry.Language);
+            var languages = Enum.GetValues(typeof(Language))
+                                .Cast<Language>()
+                                .ToList();
+            foreach (var language in languages)
+            {
+                if(entryLanguages.Where(l => l == language).Count() > 1)
+                {
+                    return false;
+                }
+            }
+            foreach (var languagEntry in LanguageEntries) 
             {
                 if (languagEntry.IsValid() == false)
                 {
@@ -79,7 +88,7 @@ namespace CategoryManegementTool.Shared.Models
                 }
             }
 
-            if (language.Contains(Language.German) && language.Contains(Language.English))
+            if (entryLanguages.Contains(Language.German) && entryLanguages.Contains(Language.English))
             {
                 return true;
             }

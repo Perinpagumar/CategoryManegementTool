@@ -1,0 +1,20 @@
+﻿<h5 class="card-header">
+    <label>@Edited.Text</label>
+</h5>
+<div class="card-body">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:white">Language</span>
+        </div>
+        <select class="form-control" @bind="@Edited.Language" style="background-color:white" disabled>
+            <option value="@Edited.Language">@Edited.Language</option>
+        </select>
+    </div>
+    <br />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:@TextIsEdited()">Text</span>
+        </div>
+        <input type="text" class="form-control" @bind-value="@Edited.Text" style="background-color:@TextIsEdited()" disabled>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+﻿<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <h3>Original</h3>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">ID</span>
+                    </div>
+                    <input type="text" class="form-control" @bind="@Category.Id" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <h3>Edited</h3>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">ID</span>
+                    </div>
+                    <input type="text" class="form-control" @bind="@EditedCategory.Id" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="card">
+    <h5 class="card-header">
+        <label class="align-self-lg-center">LanguageEntries</label>
+    </h5>
+    <div class="card-body">
+        @foreach (var languageEntry in Category.LanguageEntries)
+        {
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <LanguageEntryViewComponent LanguageEntry="languageEntry" Disabled="true" IsLanguageEntry="true"></LanguageEntryViewComponent>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        @if (GetEditedLanguageEntryVersion(languageEntry) != null)
+                        {
+                            <CompareLanguageEntryComponent Original="languageEntry" Edited="@GetEditedLanguageEntryVersion(languageEntry)"></CompareLanguageEntryComponent>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var languageEntry in GetAddedLanguageEntries())
+        {
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card" style="background-color:green">
+                        <LanguageEntryViewComponent LanguageEntry="languageEntry" Disabled="true"></LanguageEntryViewComponent>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<div class="card">
+    <h5 class="card-header">
+        <label class="align-self-lg-center">CategoryAttributes</label>
+    </h5>
+    <div class="card-body">
+        @foreach (var attribute in Category.CategoryAttributes)
+        {
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <AttributeComponent CategoryAttribute="attribute" Disabled="true"></AttributeComponent>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card" style="background-color:@IsEdited(attribute,GetEditedCategoryAttributeVersion(attribute))">
+                        <CompareAttributeComponent Original="attribute" Edited="GetEditedCategoryAttributeVersion(attribute)"></CompareAttributeComponent>
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var attribute in GetAddedAttributes())
+        {
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card" style="background-color:green">
+                        @if (attribute != null)
+                        {
+                            <AttributeComponent CategoryAttribute="attribute" Disabled="true"></AttributeComponent>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

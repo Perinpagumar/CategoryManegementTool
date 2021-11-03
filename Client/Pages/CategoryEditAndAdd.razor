@@ -10,48 +10,71 @@
         </div>
         <input type="text" class="form-control" @bind="@Category.Id" disabled>
     </div>
-    <br />
-    <label>LanguageEntries</label>
-    <a @onclick="AddLanguageEntry" class="btn btn-primary">Add</a>
-    @if (Category.LanguageEntries != null)
-    {
-        @foreach (var laguageEntry in Category.LanguageEntries)
-        {
-            <div class="card">
-                <LanguageEntryViewComponent LanguageEntry="laguageEntry" Disabled="false" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
-            </div>
-        }
-    }
-    <br />
+    <hr />
+    
+    <div class="card">
+        <h5 class="card-header">
+            <label>LanguageEntries</label>
+            <a @onclick="AddLanguageEntry" class="btn btn-primary">Add</a>
+        </h5>
+        <div class="card-body">
+            @if (Category.LanguageEntries != null)
+            {
+                @foreach (var laguageEntry in Category.LanguageEntries)
+                {
+                    <div class="card">
+                        <LanguageEntryViewComponent LanguageEntry="laguageEntry" Disabled="false" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <hr />
+
     <div @onclick="ToParentCategory" class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">ParentCategoryID</span>
         </div>
         <input type="text" class="form-control" @bind="@Category.ParrentCategoryId" disabled>
     </div>
-    <hr />
-    <label>Parent Attributes</label>
-    @foreach (var parentAttributes in GetParentAttributes())
-    {
-        @foreach (var parentAttribute in parentAttributes)
-        {
-            <div class="card" hidden="@IsAdd">
-                <AttributeComponent CategoryAttribute="parentAttribute" Disabled="true" RenderWholePage="@RenderWholePage"></AttributeComponent>
-            </div>
-        }
-    }
-    <hr />
-    <label>Attributes</label>
-    <a @onclick="AddCategoryAttributeAsync" class="btn btn-primary">Add</a>
-    @foreach (var thisAttribute in Category.CategoryAttributes)
-    {
-        <div class="card">
-            <AttributeComponent CategoryAttribute="thisAttribute" Disabled="false" RenderWholePage="@RenderWholePage"></AttributeComponent>
+    <br />
+
+    <div class="card">
+        <h5 class="card-header">
+            <label>Parent Attributes</label>
+        </h5>
+        <div class="card-body">
+            @foreach (var parentAttributes in GetParentAttributes())
+            {
+                @foreach (var parentAttribute in parentAttributes)
+                {
+                    <div class="card" hidden="@IsAdd">
+                        <AttributeComponent CategoryAttribute="parentAttribute" Disabled="true" RenderWholePage="@RenderWholePage"></AttributeComponent>
+                    </div>
+                }
+            }
         </div>
-    }
+    </div>
+    <hr />
+
+    <div class="card">
+        <h5 class="card-header">
+            <label>Attributes</label>
+            <a @onclick="AddCategoryAttributeAsync" class="btn btn-primary">Add</a>
+        </h5>
+        <div class="card-body">
+            @foreach (var thisAttribute in Category.CategoryAttributes)
+            {
+                <div class="card">
+                    <AttributeComponent CategoryAttribute="thisAttribute" Disabled="false" RenderWholePage="@RenderWholePage"></AttributeComponent>
+                </div>
+            }
+        </div>
+    </div>
     <hr />
     <a @onclick="SaveChanges" class="btn btn-primary float-right">Save</a>
     <a @onclick="CancelChanges" class="btn btn-primary float-right" style="margin-right:10px">Cancel</a>
+    <br />
 </div>
 
 <dialog class="popover position-fixed" hidden="@NotValidDialogShow">

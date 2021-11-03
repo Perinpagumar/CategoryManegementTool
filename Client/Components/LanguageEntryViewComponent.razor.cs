@@ -40,9 +40,9 @@ namespace CategoryManegementTool.Client.Components
                     .ToList();
                 if (attribute != null)
                 {
-                    attribute[0].LanguageEntries.Remove(LanguageEntry);
-                    attribute[0].RegexDescriptions.Remove(LanguageEntry);
-                    attribute[0].PossibleValues.Remove(LanguageEntry);
+                    attribute.First().LanguageEntries.Remove(LanguageEntry);
+                    attribute.First().RegexDescriptions.Remove(LanguageEntry);
+                    attribute.First().PossibleValues.Remove(LanguageEntry);
                 }
             }
             else

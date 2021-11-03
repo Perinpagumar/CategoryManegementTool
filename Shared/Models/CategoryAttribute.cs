@@ -60,7 +60,7 @@ namespace CategoryManegementTool.Shared.Models
 
         private bool RegexIsValid() 
         {
-            if(ValidationRegex != null)
+            if(ValidationRegex != null && ValidationRegex != string.Empty)
             {
                 return LanguageEntriesAreValid(RegexDescriptions);
             }
@@ -77,7 +77,18 @@ namespace CategoryManegementTool.Shared.Models
 
             private bool LanguageEntriesAreValid(List<LanguageEntry> thisLanguageEntry)
         {
-            var language = thisLanguageEntry.Select(languageEntry => languageEntry.Language);
+            var entryLanguages = thisLanguageEntry.Select(languageEntry => languageEntry.Language);
+
+            var languages = Enum.GetValues(typeof(Language))
+                    .Cast<Language>()
+                    .ToList();
+            foreach (var language in languages)
+            {
+                if (entryLanguages.Where(l => l == language).Count() > 1)
+                {
+                    return false;
+                }
+            }
 
             foreach (var languagEntry in thisLanguageEntry)
             {
@@ -87,7 +98,7 @@ namespace CategoryManegementTool.Shared.Models
                 }
             }
 
-            if (language.Contains(Language.German) && language.Contains(Language.English))
+            if (entryLanguages.Contains(Language.German) && entryLanguages.Contains(Language.English))
             {
                 return true;
             }

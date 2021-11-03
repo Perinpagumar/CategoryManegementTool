@@ -36,21 +36,21 @@ namespace CategoryManegementTool.Client.Components
         {
             ApplicationCacheService.SelectedCategory.CategoryAttributes
                 .Where(attribute => attribute.Id == CategoryAttribute.Id)
-                .ToList()[0].LanguageEntries.Add(new LanguageEntry());
+                .ToList().First().LanguageEntries.Add(new LanguageEntry());
         }
 
         private void AddRegexDescription()
         {
             ApplicationCacheService.SelectedCategory.CategoryAttributes
                 .Where(attribute => attribute.Id == CategoryAttribute.Id)
-                .ToList()[0].RegexDescriptions.Add(new LanguageEntry());
+                .ToList().First().RegexDescriptions.Add(new LanguageEntry());
         }
 
         private void AddPossibleValue()
         {
             ApplicationCacheService.SelectedCategory.CategoryAttributes
                 .Where(attribute => attribute.Id == CategoryAttribute.Id)
-                .ToList()[0].PossibleValues.Add(new LanguageEntry());
+                .ToList().First().PossibleValues.Add(new LanguageEntry());
         }
 
         private async Task DeleteAsync()

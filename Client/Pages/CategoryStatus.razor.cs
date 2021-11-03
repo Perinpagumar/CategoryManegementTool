@@ -22,16 +22,20 @@ namespace CategoryManegementTool.Client.Pages
         private bool Hidden { get; set; } = true;
 
         private string Status { get; set; } = "New Added";
+
         protected override void OnInitialized()
         {
-            var originalCategory = ApplicationCacheService.OriginalCategories
-                .Where(category => category.Id == CategoryId)
-                .First();
-            if (originalCategory != null)
+            if (ApplicationCacheService.OriginalCategories.Count() > 0)
             {
-                Category = originalCategory;
-                Status = "Original";
-                GetStatus();
+                var originalCategory = ApplicationCacheService.OriginalCategories
+                .Where(category => category.Id == CategoryId)
+                .ToList();
+                if (originalCategory.Count() > 0)
+                {
+                    Category = originalCategory.First();
+                    Status = "Original";
+                    GetStatus();
+                }
             }
         }
 
@@ -56,18 +60,12 @@ namespace CategoryManegementTool.Client.Pages
                     .ToList();
                     if (editedCategory.Count() > 0)
                     {
-                        EditedCategory = editedCategory.First();
+                        EditedCategory = editedCategory.First().Clone();
                         Hidden = false;
                         Status = "Edited";
-                        GetDifferences();
                     }
                 }
             }
-        }
-
-        private void GetDifferences()
-        {
-            
         }
     }
 }

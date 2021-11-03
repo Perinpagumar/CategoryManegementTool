@@ -34,15 +34,14 @@ namespace CategoryManegementTool.Client.Pages
         [Inject]
         HttpClient HttpClient { get; set; }
 
-    private readonly List<string> Validation = new(new string[]{"LanguageEntries must contain Languages: German and English!",
-            "LanguageEntry Text can't be empty!",
-            "LanguageEntry Language can't be Undefined!",
-            "___",
-            "If Attributes not empty:",
+    private readonly List<string> Validation = new(new string[]{
+            "General Validation",
             "LanguageEntries must contain Languages: German and English!",
             "LanguageEntry Text can't be empty!",
             "LanguageEntry Language can't be Undefined!",
-            "Dropdown Selects can't be Undefined!",
+            "LanguageEntries Language each can't be used more than once!",
+            "___",
+            "If Attributes not empty:",
             "RegexDescriptions can't be emty if ValidationRegex is not null!",
             "PresentatioType can't be Undefined"});
 
@@ -135,10 +134,10 @@ namespace CategoryManegementTool.Client.Pages
                     {
                         var editedCategory = ApplicationCacheService.EditedCategories
                         .Where(category => category.Id == Category.Id)
-                        .First();
-                        if (editedCategory != null)
+                        .ToList();
+                        if (editedCategory.Count() > 0)
                         {
-                            ApplicationCacheService.EditedCategories.Remove(editedCategory);
+                            ApplicationCacheService.EditedCategories.Remove(editedCategory.First());
                         }
                     }
                     ApplicationCacheService.EditedCategories.Add(Category);
@@ -174,7 +173,7 @@ namespace CategoryManegementTool.Client.Pages
             {
                 if(ApplicationCacheService.AllCategories.Where(c => c.CategoryAttributes.Any(a => a.Id == id)).Any())
                 {
-                    GetObjectId();
+                    await GetObjectId();
                 }
             }
 

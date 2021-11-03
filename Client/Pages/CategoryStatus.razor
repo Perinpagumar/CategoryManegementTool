@@ -20,83 +20,10 @@
     <hr />
 </div>
 
-<div class="container" hidden="@Hidden">
-    <div class="row">
-        <div class="col-6">
-            <div class="card">
-                <div class="card-body">
-                    <h3>Original</h3>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">ID</span>
-                        </div>
-                        <input type="text" class="form-control" @bind="@Category.Id" disabled>
-                    </div>
-                    <br />
-                    <label>LanguageEntries</label>
-                        @foreach (var laguageEntry in Category.LanguageEntries)
-                        {
-                            <div class="card">
-                                <LanguageEntryViewComponent LanguageEntry="laguageEntry" Disabled="true"></LanguageEntryViewComponent>
-                            </div>
-                        }
-                    <br />
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6">
-            <div class="card">
-                <div class="card-body">
-                    <h3>Edited</h3>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">ID</span>
-                        </div>
-                        <input type="text" class="form-control" @bind="@EditedCategory.Id" disabled>
-                    </div>
-                    <br />
-                    <label>LanguageEntries</label>
-                        @foreach (var laguageEntry in EditedCategory.LanguageEntries)
-                        {
-                            <div class="card">
-                                <LanguageEntryViewComponent LanguageEntry="laguageEntry" Disabled="true"></LanguageEntryViewComponent>
-                            </div>
-                        }
-                    <br />
-                </div>
-            </div>
-        </div>
+@if (!Hidden)
+{
+    <div class="container">
+        <CategoriesComparerComponent Category="Category" EditedCategory="EditedCategory" />
     </div>
+}
 
-    <div class="row">
-        <div class="col-6">
-            <div class="card">
-                <div class="card-body">
-                    <label>Attributes</label>
-                    @foreach (var thisAttribute in Category.CategoryAttributes)
-                    {
-                        <div class="card">
-                            <AttributeComponent CategoryAttribute="thisAttribute" Disabled="true"></AttributeComponent>
-                        </div>
-                    }
-                    <br />
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card">
-                <div class="card-body">
-                    <label>Attributes</label>
-                    @foreach (var thisAttribute in EditedCategory.CategoryAttributes)
-                    {
-                        <div class="card">
-                            <AttributeComponent CategoryAttribute="thisAttribute" Disabled="true"></AttributeComponent>
-                        </div>
-                    }
-                    <br />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

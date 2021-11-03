@@ -1,0 +1,130 @@
+﻿<h5 class="card-header">
+    <label>@Edited.Id</label>
+</h5>
+<div class="card-body">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">ID</span>
+        </div>
+        <input type="text" class="form-control" @bind="@Edited.Id" disabled>
+    </div>
+    <hr />
+    <label>LanguageEntries</label>
+    @if (Edited.LanguageEntries != null)
+    {
+        @foreach (var laguageEntry in Original.LanguageEntries)
+        {
+            <div class="card">
+                @if (GetEditedLanguageEntryVersion(laguageEntry, Edited.LanguageEntries) != null)
+                {
+                    <CompareLanguageEntryComponent Original="laguageEntry" Edited="GetEditedLanguageEntryVersion(laguageEntry, Edited.LanguageEntries)"></CompareLanguageEntryComponent>
+                }
+            </div>
+        }
+    }
+    @foreach (var languageEntry in GetAddedLanguageEntries(Original.LanguageEntries, Edited.LanguageEntries))
+    {
+        <div class="card" style="background-color:green">
+            @if (languageEntry != null)
+            {
+                <LanguageEntryViewComponent LanguageEntry="languageEntry" Disabled="true"></LanguageEntryViewComponent>
+            }
+        </div>
+    }
+    <hr />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:@DataTypeEdited()">DataType</span>
+        </div>
+        <select class="form-control" @bind="@Edited.DataType" style="background-color:@DataTypeEdited()" disabled>
+            <option value="@Edited.DataType">@Edited.DataType</option>
+        </select>
+    </div>
+    <hr />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:@TextEdited(Original.ValidationRegex, Edited.ValidationRegex)">ValidationRegex</span>
+        </div>
+        <input type="text" class="form-control" @bind="@Edited.ValidationRegex" style="background-color:@TextEdited(Original.ValidationRegex, Edited.ValidationRegex)" disabled>
+    </div>
+    <br />
+    <label>RegexDescriptions</label>
+    @if (Edited.RegexDescriptions != null)
+    {
+        @foreach (var regexDescription in Edited.RegexDescriptions)
+        {
+            <div class="card">
+                @if (GetEditedLanguageEntryVersion(regexDescription, Edited.RegexDescriptions) != null)
+                {
+                    <CompareLanguageEntryComponent Original="regexDescription" Edited="GetEditedLanguageEntryVersion(regexDescription, Edited.RegexDescriptions)"></CompareLanguageEntryComponent>
+                }
+            </div>
+        }
+    }
+    @foreach (var languageEntry in GetAddedLanguageEntries(Original.RegexDescriptions, Edited.RegexDescriptions))
+    {
+        <div class="card" style="background-color:green">
+            @if (languageEntry != null)
+            {
+                <LanguageEntryViewComponent LanguageEntry="languageEntry" Disabled="true"></LanguageEntryViewComponent>
+            }
+        </div>
+    }
+
+    <hr />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:@BooleanEdited(Original.IsIncludedInPreview, Edited.IsIncludedInPreview)">IsIncludedInPreview</span>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" @bind="@Edited.IsIncludedInPreview" disabled style="height:30px; width:30px; background-color:@BooleanEdited(Original.IsIncludedInPreview, Edited.IsIncludedInPreview)">
+        </div>
+    </div>
+    <br />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:@UnitTypeEdited()">UnitType</span>
+        </div>
+        <select class="form-control" @bind="@Edited.UnitType" style="background-color:@UnitTypeEdited()" disabled>
+            <option value="@Edited.UnitType">@Edited.UnitType</option>
+        </select>
+    </div>
+    <br />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:@BooleanEdited(Original.IsRequired, Edited.IsRequired)">IsRequired</span>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" @bind="@Edited.IsRequired" disabled style="height:30px; width:30px; background-color:@BooleanEdited(Original.IsRequired, Edited.IsRequired)">
+        </div>
+    </div>
+    <br />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:@PresentationTypeEdited()">PresentationType</span>
+        </div>
+        <select class="form-control" @bind="@Edited.PresentationType" style="background-color:@PresentationTypeEdited()" disabled>
+            <option value="@Edited.PresentationType">@Edited.PresentationType</option>
+        </select>
+    </div>
+    <br />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:@BooleanEdited(Original.IsFilter, Edited.IsFilter)">IsFilter</span>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" @bind="@Edited.IsFilter" disabled style="height:30px; width:30px; background-color:@BooleanEdited(Original.IsFilter, Edited.IsFilter)">
+        </div>
+    </div>
+    <hr />
+    <label>PossibleValues</label>
+    @if (Edited.PossibleValues != null)
+    {
+        @foreach (var possibleValue in Edited.PossibleValues)
+        {
+            <div class="card" style="background-color:@PossibleValuesEdited()">
+                <LanguageEntryViewComponent AttributeId="@Edited.Id.ToString()" LanguageEntry="possibleValue" Disabled="true"></LanguageEntryViewComponent>
+            </div>
+        }
+    }
+</div>
