@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CategoryManegementTool.Client.Components
+namespace CategoryManegementTool.Client.Components.General
 {
     public partial class CategoryTreeViewerComponent
     {
@@ -34,7 +34,7 @@ namespace CategoryManegementTool.Client.Components
             return AllCategories.Where(category => category.ParrentCategoryId == parentCategoryId).ToList();
         }
 
-        private void DeleteCategory(Category category) 
+        private void DeleteCategory(Category category)
         {
             ApplicationCacheService.AllCategories.Remove(category);
             ApplicationCacheService.DeletedCategories.Add(category);

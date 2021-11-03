@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CategoryManegementTool.Client.Components
+namespace CategoryManegementTool.Client.Components.Compare
 {
     public partial class CompareLanguageEntryComponent
     {
@@ -20,7 +20,7 @@ namespace CategoryManegementTool.Client.Components
 
         private ConsoleColor TextIsEdited()
         {
-            if(Original.Text == Edited.Text)
+            if (Original.Text == Edited.Text)
             {
                 return ConsoleColor.White;
             }

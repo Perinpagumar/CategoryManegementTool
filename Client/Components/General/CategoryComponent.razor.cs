@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CategoryManegementTool.Client.Components
+namespace CategoryManegementTool.Client.Components.General
 {
     public partial class CategoryComponent
     {
@@ -27,7 +27,7 @@ namespace CategoryManegementTool.Client.Components
 
         private bool GetIsDelete()
         {
-            return (IsNotMain)
+            return IsNotMain
                 ? true
                 : false;
         }
@@ -37,7 +37,7 @@ namespace CategoryManegementTool.Client.Components
             if (IsDeleted)
             {
                 var list = ApplicationCacheService.DeletedCategories.Where(category => category.Id == Category.ParrentCategoryId).ToList();
-                return (list.Count() > 0)
+                return list.Count() > 0
                     ? true
                     : false;
             }

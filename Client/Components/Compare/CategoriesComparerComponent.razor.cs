@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CategoryManegementTool.Client.Components
+namespace CategoryManegementTool.Client.Components.Compare
 {
     public partial class CategoriesComparerComponent
     {
@@ -22,12 +22,12 @@ namespace CategoryManegementTool.Client.Components
                 .FirstOrDefault();
         }
 
-        private List<LanguageEntry> GetAddedLanguageEntries() 
+        private List<LanguageEntry> GetAddedLanguageEntries()
         {
             var edited = new List<LanguageEntry>();
-            foreach(var languageEntry in EditedCategory.LanguageEntries)
+            foreach (var languageEntry in EditedCategory.LanguageEntries)
             {
-                if(!Category.LanguageEntries.Where(l => l.Language == languageEntry.Language).Any())
+                if (!Category.LanguageEntries.Where(l => l.Language == languageEntry.Language).Any())
                 {
                     edited.Add(languageEntry);
                 }

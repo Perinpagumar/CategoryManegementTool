@@ -1,5 +1,6 @@
 ﻿@page "/categories"
-@using CategoryManegementTool.Client.Components
+@using CategoryManegementTool.Client.Components.General
+
 <div class="input-group">
     <h3 style="margin-right:20px">Category Management Tool</h3>
     <input @bind="@Search" type="text">
@@ -46,8 +47,8 @@
 @if (IsCompare)
 {
     <CategoryCompareViewerComponent RenderWholePage="@RenderWholePage"
-                                       IsDeleted="@IsDeleted"
-                                       IsNotMain="@IsNotMain">
+                                    IsDeleted="@IsDeleted"
+                                    IsNotMain="@IsNotMain">
     </CategoryCompareViewerComponent>
 }
 

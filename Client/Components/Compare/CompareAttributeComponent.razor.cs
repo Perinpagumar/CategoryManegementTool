@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CategoryManegementTool.Client.Components
+namespace CategoryManegementTool.Client.Components.Compare
 {
     public partial class CompareAttributeComponent
     {
@@ -26,7 +26,7 @@ namespace CategoryManegementTool.Client.Components
         private List<LanguageEntry> GetAddedLanguageEntries(List<LanguageEntry> originalLanguageEntries, List<LanguageEntry> editedLanguageEntries)
         {
             var edited = new List<LanguageEntry>();
-            if(originalLanguageEntries != null && editedLanguageEntries != null)
+            if (originalLanguageEntries != null && editedLanguageEntries != null)
             {
                 foreach (var languageEntry in editedLanguageEntries)
                 {
@@ -41,13 +41,13 @@ namespace CategoryManegementTool.Client.Components
 
         private ConsoleColor PossibleValuesEdited(List<LanguageEntry> originalLanguageEntries, List<LanguageEntry> editedLanguageEntries)
         {
-            if(Original.PossibleValues.Count() == Edited.PossibleValues.Count() && Original.PossibleValues.Count() > 0 && Original.PossibleValues.Count() > 0)
+            if (Original.PossibleValues.Count() == Edited.PossibleValues.Count() && Original.PossibleValues.Count() > 0 && Original.PossibleValues.Count() > 0)
             {
-                foreach(var possibleValues in Edited.PossibleValues)
-                if (!Original.PossibleValues.Contains(possibleValues))
-                {
-                    return ConsoleColor.Yellow;
-                }
+                foreach (var possibleValues in Edited.PossibleValues)
+                    if (!Original.PossibleValues.Contains(possibleValues))
+                    {
+                        return ConsoleColor.Yellow;
+                    }
             }
             return ConsoleColor.White;
         }
