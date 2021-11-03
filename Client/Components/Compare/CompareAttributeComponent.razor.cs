@@ -16,6 +16,8 @@ namespace CategoryManegementTool.Client.Components.Compare
         [Parameter]
         public CategoryAttribute Edited { get; set; } = new();
 
+        private LanguageEntry Empty = new LanguageEntry();
+
         private LanguageEntry GetEditedLanguageEntryVersion(LanguageEntry languageEntry, List<LanguageEntry> languageEntries)
         {
             return languageEntries
@@ -39,17 +41,27 @@ namespace CategoryManegementTool.Client.Components.Compare
             return edited;
         }
 
-        private ConsoleColor PossibleValuesEdited(List<LanguageEntry> originalLanguageEntries, List<LanguageEntry> editedLanguageEntries)
+        private LanguageEntry GetEditedPossibleValueVersion(LanguageEntry languageEntry)
         {
-            if (Original.PossibleValues.Count() == Edited.PossibleValues.Count() && Original.PossibleValues.Count() > 0 && Original.PossibleValues.Count() > 0)
+            return Edited.PossibleValues
+                .Where(l => l.Language == languageEntry.Language && l.Value == languageEntry.Value)
+                .FirstOrDefault();
+        }
+
+        private List<LanguageEntry> GetAddedPssibleValues()
+        {
+            var edited = new List<LanguageEntry>();
+            if (Original.PossibleValues != null && Edited.PossibleValues != null)
             {
-                foreach (var possibleValues in Edited.PossibleValues)
-                    if (!Original.PossibleValues.Contains(possibleValues))
+                foreach (var languageEntry in Edited.PossibleValues)
+                {
+                    if (!Original.PossibleValues.Where(l => l.Language == languageEntry.Language && l.Value == languageEntry.Value).Any())
                     {
-                        return ConsoleColor.Yellow;
+                        edited.Add(languageEntry);
                     }
+                }
             }
-            return ConsoleColor.White;
+            return edited;
         }
 
         private ConsoleColor BooleanEdited(bool original, bool edited)

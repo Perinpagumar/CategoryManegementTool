@@ -17,11 +17,11 @@
         </div>
         <input type="text" class="form-control" @bind-value="@Edited.Text" style="background-color:@TextIsEdited()" disabled>
     </div>
-    <br />
-    <div class="input-group mb-3">
+    <br hidden="!@IsPossibleValue" />
+    <div class="input-group mb-3" hidden="!@IsPossibleValue">
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Text</span>
         </div>
-        <input type="text" class="form-control" disabled>
+        <input type="text" class="form-control" @bind-value="@Edited.Value" disabled>
     </div>
 </div>

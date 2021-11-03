@@ -15,6 +15,7 @@ namespace CategoryManegementTool.Client.Components.Compare
         [Parameter]
         public Category EditedCategory { get; set; } = new();
 
+
         private LanguageEntry GetEditedLanguageEntryVersion(LanguageEntry languageEntry)
         {
             return EditedCategory.LanguageEntries
@@ -42,10 +43,6 @@ namespace CategoryManegementTool.Client.Components.Compare
                 .FirstOrDefault();
         }
 
-        private ConsoleColor IsEdited(CategoryAttribute original, CategoryAttribute edited)
-        {
-            return ConsoleColor.White;
-        }
         private List<CategoryAttribute> GetAddedAttributes()
         {
             var added = new List<CategoryAttribute>();

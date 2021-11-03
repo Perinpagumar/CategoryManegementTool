@@ -29,7 +29,7 @@ namespace CategoryManegementTool.Client.Pages
                     ApplicationCacheService.AllCategories.Add(category);
                 }
             }
-            NavigationManager.NavigateTo("/categories");
+            NavigationManager.NavigateTo("/");
         }
 
         private async Task SingleUpload(InputFileChangeEventArgs e)

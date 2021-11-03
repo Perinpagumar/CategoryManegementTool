@@ -44,12 +44,18 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="card">
-                        @if (GetEditedLanguageEntryVersion(languageEntry) != null)
-                        {
+                    @if (GetEditedLanguageEntryVersion(languageEntry) != null)
+                    {
+                        <div class="card">
                             <CompareLanguageEntryComponent Original="languageEntry" Edited="@GetEditedLanguageEntryVersion(languageEntry)"></CompareLanguageEntryComponent>
-                        }
-                    </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card" style="background-color:red">
+                            <LanguageEntryViewComponent LanguageEntry="@new()" Disabled="true" IsLanguageEntry="true"></LanguageEntryViewComponent>
+                        </div>
+                    }
                 </div>
             </div>
         }
@@ -84,9 +90,21 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="card" style="background-color:@IsEdited(attribute,GetEditedCategoryAttributeVersion(attribute))">
-                        <CompareAttributeComponent Original="attribute" Edited="GetEditedCategoryAttributeVersion(attribute)"></CompareAttributeComponent>
-                    </div>
+
+                    @if (GetEditedCategoryAttributeVersion(attribute) != null)
+                    {
+                        <div class="card">
+                            <CompareAttributeComponent Original="attribute" Edited="GetEditedCategoryAttributeVersion(attribute)"></CompareAttributeComponent>
+                        </div>
+                        <br />
+                    }
+                    else
+                    {
+                        <div class="card" style="background-color:red">
+                            <AttributeComponent CategoryAttribute="new()" Disabled="true"></AttributeComponent>
+                        </div>
+                        <br />
+                    }
                 </div>
             </div>
         }
@@ -98,12 +116,13 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="card" style="background-color:green">
-                        @if (attribute != null)
-                        {
+                    @if (attribute != null)
+                    {
+                        <div class="card" style="background-color:green">
                             <AttributeComponent CategoryAttribute="attribute" Disabled="true"></AttributeComponent>
-                        }
-                    </div>
+                        </div>
+                        <br />
+                    }
                 </div>
             </div>
         }

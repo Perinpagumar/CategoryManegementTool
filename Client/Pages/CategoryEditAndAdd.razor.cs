@@ -142,7 +142,7 @@ namespace CategoryManegementTool.Client.Pages
                     }
                     ApplicationCacheService.EditedCategories.Add(Category);
                 }
-                NavigationManager.NavigateTo("/categories");
+                NavigationManager.NavigateTo("/");
             }
             else
             {
@@ -153,7 +153,7 @@ namespace CategoryManegementTool.Client.Pages
 
         private void CancelChanges() 
         {
-            NavigationManager.NavigateTo("/categories");
+            NavigationManager.NavigateTo("/");
         }
 
         private void TriggerDialog()

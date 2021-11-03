@@ -27,5 +27,15 @@ namespace CategoryManegementTool.Client.Components.Compare
 
             return ConsoleColor.Yellow;
         }
+
+        private ConsoleColor ValueIsEdited()
+        {
+            if (Original.Value == Edited.Value)
+            {
+                return ConsoleColor.White;
+            }
+
+            return ConsoleColor.Yellow;
+        }
     }
 }

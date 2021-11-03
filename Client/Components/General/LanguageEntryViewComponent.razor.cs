@@ -36,7 +36,7 @@ namespace CategoryManegementTool.Client.Components.General
             if (AttributeId != null)
             {
                 var attribute = ApplicationCacheService.SelectedCategory.CategoryAttributes
-                    .Where(attribute => attribute.Id.ToString() == AttributeId)
+                    .Where(attribute => attribute.Id == AttributeId)
                     .ToList();
                 if (attribute != null)
                 {

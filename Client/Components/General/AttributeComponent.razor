@@ -23,7 +23,7 @@
                     @foreach (var laguageEntry in CategoryAttribute.LanguageEntries)
                     {
                         <div class="card">
-                            <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id.ToString()" LanguageEntry="laguageEntry" Disabled="@Disabled" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
+                            <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id" LanguageEntry="laguageEntry" Disabled="@Disabled" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
                         </div>
                     }
                 }
@@ -62,7 +62,7 @@
                     @foreach (var regexDescription in CategoryAttribute.RegexDescriptions)
                     {
                         <div class="card">
-                            <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id.ToString()" LanguageEntry="regexDescription" Disabled="@Disabled" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
+                            <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id" LanguageEntry="regexDescription" Disabled="@Disabled" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
                         </div>
                     }
                 }
@@ -71,11 +71,11 @@
         <hr />
 
         <div class="input-group mb-3">
+            <div class="form-check" style="margin-right:20px">
+                <input class="form-check-input" type="checkbox" @bind="@CategoryAttribute.IsIncludedInPreview" disabled="@Disabled" style="height:30px;width:30px">
+            </div>
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">IsIncludedInPreview</span>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" @bind="@CategoryAttribute.IsIncludedInPreview" disabled="@Disabled" style="height:30px;width:30px">
             </div>
         </div>
         <br />
@@ -94,11 +94,11 @@
         </div>
         <br />
         <div class="input-group mb-3">
+            <div class="form-check" style="margin-right:20px">
+                <input class="form-check-input" type="checkbox" @bind="@CategoryAttribute.IsRequired" disabled="@Disabled" style="height:30px;width:30px">
+            </div>
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">IsRequired</span>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" @bind="@CategoryAttribute.IsRequired" disabled="@Disabled" style="height:30px;width:30px">
             </div>
         </div>
         <br />
@@ -117,11 +117,11 @@
         </div>
         <br />
         <div class="input-group mb-3">
+            <div class="form-check" style="margin-right:20px">
+                <input class="form-check-input" type="checkbox" @bind="@CategoryAttribute.IsFilter" disabled="@Disabled" style="height:30px;width:30px">
+            </div>
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">IsFilter</span>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" @bind="@CategoryAttribute.IsFilter" disabled="@Disabled" style="height:30px;width:30px">
             </div>
         </div>
         <hr />
@@ -137,7 +137,7 @@
                     @foreach (var possibleValue in CategoryAttribute.PossibleValues)
                     {
                         <div class="card">
-                            <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id.ToString()" LanguageEntry="possibleValue" Disabled="@Disabled" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
+                            <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id" LanguageEntry="possibleValue" Disabled="@Disabled" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
                         </div>
                     }
                 }
