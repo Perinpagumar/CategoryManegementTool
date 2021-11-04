@@ -37,12 +37,12 @@ namespace CategoryManegementTool.Client.Components.General
             {
                 var attribute = ApplicationCacheService.SelectedCategory.CategoryAttributes
                     .Where(attribute => attribute.Id == AttributeId)
-                    .ToList();
+                    .First();
                 if (attribute != null)
                 {
-                    attribute.First().LanguageEntries.Remove(LanguageEntry);
-                    attribute.First().RegexDescriptions.Remove(LanguageEntry);
-                    attribute.First().PossibleValues.Remove(LanguageEntry);
+                    attribute.LanguageEntries.Remove(LanguageEntry);
+                    attribute.RegexDescriptions.Remove(LanguageEntry);
+                    attribute.PossibleValues.Remove(LanguageEntry);
                 }
             }
             else

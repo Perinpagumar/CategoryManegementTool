@@ -25,13 +25,7 @@
                         @if (GetEditedLanguageEntryVersion(laguageEntry, Edited.LanguageEntries) != null)
                         {
                             <div class="card">
-                                <CompareLanguageEntryComponent Original="laguageEntry" Edited="GetEditedLanguageEntryVersion(laguageEntry, Edited.LanguageEntries)" IsPossibleValue="true"></CompareLanguageEntryComponent>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="card" style="background-color:red">
-                                <LanguageEntryViewComponent LanguageEntry="@new()" Disabled="true" IsLanguageEntry="true"></LanguageEntryViewComponent>
+                                <CompareLanguageEntryComponent Original="laguageEntry" Edited="GetEditedLanguageEntryVersion(laguageEntry, Edited.LanguageEntries)"></CompareLanguageEntryComponent>
                             </div>
                         }
                     }
@@ -76,12 +70,6 @@
                         {
                             <div class="card">
                                 <CompareLanguageEntryComponent Original="regexDescription" Edited="GetEditedLanguageEntryVersion(regexDescription, Edited.RegexDescriptions)"></CompareLanguageEntryComponent>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="card" style="background-color:red">
-                                <LanguageEntryViewComponent LanguageEntry="@new()" Disabled="true" IsLanguageEntry="true"></LanguageEntryViewComponent>
                             </div>
                         }
                     }
@@ -147,22 +135,19 @@
                 <label>PossibleValues</label>
             </h5>
             <div class="card-body">
-                @if (Edited.PossibleValues != null)
+                @foreach (var possibleValue in Original.PossibleValues)
                 {
-                    @foreach (var possibleValue in Original.PossibleValues)
+                    @if (GetEditedPossibleValueVersion(possibleValue) != null)
                     {
-                        @if (GetEditedLanguageEntryVersion(possibleValue, Edited.PossibleValues) != null)
-                        {
-                            <div class="card">
-                                <CompareLanguageEntryComponent Original="possibleValue" Edited="GetEditedPossibleValueVersion(possibleValue)"></CompareLanguageEntryComponent>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="card" style="background-color:red">
-                                <LanguageEntryViewComponent LanguageEntry="@new()" Disabled="true"></LanguageEntryViewComponent>
-                            </div>
-                        }
+                        <div class="card">
+                            <CompareLanguageEntryComponent Original="possibleValue" Edited="GetEditedPossibleValueVersion(possibleValue)" IsPossibleValue="true"></CompareLanguageEntryComponent>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card" style="background-color:red">
+                            <CompareLanguageEntryComponent Original="@new()" Edited="@new()" IsPossibleValue="true"></CompareLanguageEntryComponent>
+                        </div>
                     }
                 }
                 @foreach (var languageEntry in GetAddedPssibleValues())

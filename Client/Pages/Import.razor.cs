@@ -23,6 +23,23 @@ namespace CategoryManegementTool.Client.Pages
             var allCategories = ApplicationCacheService.GetCategoriesFromAllLists();
             foreach(var category in newCategories)
             {
+                foreach(var a in category.CategoryAttributes)
+                {
+                    if(a.PossibleValues == null)
+                    {
+                        a.PossibleValues = new();
+                    }
+
+                    if (a.LanguageEntries == null)
+                    {
+                        a.LanguageEntries = new();
+                    }
+
+                    if (a.RegexDescriptions == null)
+                    {
+                        a.RegexDescriptions = new();
+                    }
+                }
                 if(!allCategories.Where(c => c.Id == category.Id).Any())
                 {
                     ApplicationCacheService.OriginalCategories.Add(category);

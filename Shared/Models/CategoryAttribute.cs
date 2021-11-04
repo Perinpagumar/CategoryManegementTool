@@ -16,9 +16,9 @@ namespace CategoryManegementTool.Shared.Models
 
         public DataType DataType { get; set; }
 
-        public string? ValidationRegex { get; set; }
+        public string ValidationRegex { get; set; }
 
-        public List<LanguageEntry>? RegexDescriptions { get; set; } = new();
+        public List<LanguageEntry> RegexDescriptions { get; set; } = new();
 
         public bool IsIncludedInPreview { get; set; }
 
@@ -30,7 +30,7 @@ namespace CategoryManegementTool.Shared.Models
 
         public bool IsFilter { get; set; }
 
-        public List<LanguageEntry>? PossibleValues { get; set; } = new();
+        public List<LanguageEntry> PossibleValues { get; set; } = new();
 
         public bool SerchAllData(string input)
         {
@@ -60,7 +60,7 @@ namespace CategoryManegementTool.Shared.Models
 
         private bool RegexIsValid() 
         {
-            if(string.IsNullOrEmpty(ValidationRegex) || string.IsNullOrWhiteSpace(ValidationRegex))
+            if(!string.IsNullOrEmpty(ValidationRegex) || !string.IsNullOrWhiteSpace(ValidationRegex))
             {
                 return LanguageEntriesAreValid(RegexDescriptions);
             }
@@ -81,12 +81,12 @@ namespace CategoryManegementTool.Shared.Models
             {
                 foreach(var possibleValue in PossibleValues)
                 {
-                    if (possibleValue.Language != Language.Undefined && possibleValue.Text != null && possibleValue.Value != null)
+                    if (possibleValue.Language == Language.Undefined && string.IsNullOrEmpty(possibleValue.Text) && string.IsNullOrEmpty(possibleValue.Value))
                     {
-                        return true;
+                        return false;
                     }
-                    return false;
                 }
+                return true;
             }
             return true;
         }

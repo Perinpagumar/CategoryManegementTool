@@ -35,22 +35,19 @@ namespace CategoryManegementTool.Client.Components.General
         private void AddLanguageEntry()
         {
             ApplicationCacheService.SelectedCategory.CategoryAttributes
-                .Where(attribute => attribute.Id == CategoryAttribute.Id)
-                .ToList().First().LanguageEntries.Add(new LanguageEntry());
+            .First(attribute => attribute.Id == CategoryAttribute.Id).LanguageEntries.Add(new LanguageEntry());
         }
 
         private void AddRegexDescription()
         {
             ApplicationCacheService.SelectedCategory.CategoryAttributes
-                .Where(attribute => attribute.Id == CategoryAttribute.Id)
-                .ToList().First().RegexDescriptions.Add(new LanguageEntry());
+            .First(attribute => attribute.Id == CategoryAttribute.Id).RegexDescriptions.Add(new LanguageEntry());
         }
 
         private void AddPossibleValue()
         {
             ApplicationCacheService.SelectedCategory.CategoryAttributes
-                .Where(attribute => attribute.Id == CategoryAttribute.Id)
-                .ToList().First().PossibleValues.Add(new LanguageEntry());
+            .First(attribute => attribute.Id == CategoryAttribute.Id).PossibleValues.Add(new LanguageEntry());
         }
 
         private async Task DeleteAsync()
