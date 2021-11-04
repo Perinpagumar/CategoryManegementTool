@@ -16,8 +16,6 @@ namespace CategoryManegementTool.Client.Components.Compare
         [Parameter]
         public CategoryAttribute Edited { get; set; } = new();
 
-        private LanguageEntry Empty = new LanguageEntry();
-
         private LanguageEntry GetEditedLanguageEntryVersion(LanguageEntry languageEntry, List<LanguageEntry> languageEntries)
         {
             return languageEntries

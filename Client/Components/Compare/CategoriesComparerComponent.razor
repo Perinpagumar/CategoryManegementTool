@@ -32,7 +32,7 @@
 <hr />
 <div class="card">
     <h5 class="card-header">
-        <label class="align-self-lg-center">LanguageEntries</label>
+        <label style="align-self:center">LanguageEntries</label>
     </h5>
     <div class="card-body">
         @foreach (var languageEntry in Category.LanguageEntries)
@@ -101,7 +101,7 @@
                     else
                     {
                         <div class="card" style="background-color:red">
-                            <AttributeComponent CategoryAttribute="new()" Disabled="true"></AttributeComponent>
+                            <AttributeComponent CategoryAttribute="@new()" Disabled="true"></AttributeComponent>
                         </div>
                         <br />
                     }

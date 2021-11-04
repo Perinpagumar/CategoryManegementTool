@@ -41,29 +41,27 @@ namespace CategoryManegementTool.Client.Pages
 
         private void GetStatus() 
         {
-            if(ApplicationCacheService.DeletedCategories.Count() > 0)
+            if (ApplicationCacheService.EditedCategories.Count() > 0)
+            {
+                var editedCategory = ApplicationCacheService.EditedCategories
+                .Where(category => category.Id == CategoryId)
+                .ToList();
+                if (editedCategory.Count() > 0)
+                {
+                    EditedCategory = editedCategory.First().Clone();
+                    Hidden = false;
+                    Status = "Edited";
+                }
+            }
+
+            if (ApplicationCacheService.DeletedCategories.Count() > 0)
             {
                 var deletedCategory = ApplicationCacheService.DeletedCategories
                 .Where(category => category.Id == CategoryId)
                 .ToList();
                 if (deletedCategory.Count() > 0)
                 {
-                    Status = "Deleted";
-                }
-            }
-            else
-            {
-                if (ApplicationCacheService.EditedCategories.Count() > 0)
-                {
-                    var editedCategory = ApplicationCacheService.EditedCategories
-                    .Where(category => category.Id == CategoryId)
-                    .ToList();
-                    if (editedCategory.Count() > 0)
-                    {
-                        EditedCategory = editedCategory.First().Clone();
-                        Hidden = false;
-                        Status = "Edited";
-                    }
+                    Status += " & Deleted";
                 }
             }
         }

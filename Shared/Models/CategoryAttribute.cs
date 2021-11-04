@@ -51,7 +51,7 @@ namespace CategoryManegementTool.Shared.Models
 
         public bool IsValid()
         {
-            if(LanguageEntriesAreValid(LanguageEntries) && RegexIsValid() && IsNotUndefined())
+            if(LanguageEntriesAreValid(LanguageEntries) && RegexIsValid() && PossibleValuesAreValid() && IsNotUndefined())
             {
                 return true;
             }
@@ -60,7 +60,7 @@ namespace CategoryManegementTool.Shared.Models
 
         private bool RegexIsValid() 
         {
-            if(ValidationRegex != null && ValidationRegex != string.Empty)
+            if(string.IsNullOrEmpty(ValidationRegex) || string.IsNullOrWhiteSpace(ValidationRegex))
             {
                 return LanguageEntriesAreValid(RegexDescriptions);
             }
@@ -75,7 +75,22 @@ namespace CategoryManegementTool.Shared.Models
                 : false;
         }
 
-            private bool LanguageEntriesAreValid(List<LanguageEntry> thisLanguageEntry)
+        private bool PossibleValuesAreValid()
+        {
+            if(PossibleValues != null)
+            {
+                foreach(var possibleValue in PossibleValues)
+                {
+                    if (possibleValue.Language != Language.Undefined && possibleValue.Text != null && possibleValue.Value != null)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return true;
+        }
+        private bool LanguageEntriesAreValid(List<LanguageEntry> thisLanguageEntry)
         {
             var entryLanguages = thisLanguageEntry.Select(languageEntry => languageEntry.Language);
 

@@ -1,4 +1,6 @@
-﻿<EditForm Model="@CategoryAttribute">
+﻿@using CategoryManegementTool.Client.Services
+
+<EditForm Model="@CategoryAttribute">
     <h5 class="card-header">
         <label>@CategoryAttribute.Id</label>
         <a @onclick="DeleteAsync" class="btn btn-primary float-lg-right" hidden="@Disabled">Delete</a>
@@ -15,7 +17,7 @@
         <div class="card">
             <h5 class="card-header">
                 <label>LanguageEntries</label>
-                <a @onclick="@AddLanguageEntry" class="btn btn-primary" hidden="@Disabled">Add</a>
+                <a @onclick="@AddLanguageEntry" class="btn btn-primary float-lg-right" hidden="@Disabled">Add</a>
             </h5>
             <div class=" card-body">
                 @if (CategoryAttribute.LanguageEntries != null)
@@ -33,7 +35,7 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">DataType</span>
+                <span class="input-group-text" id="basic-addon1" style="background-color:@VisualizeValidation.DataTypeNotUndefined(CategoryAttribute.DataType)">DataType</span>
             </div>
             <select class="form-control" @bind="@CategoryAttribute.DataType" disabled="@Disabled">
                 @foreach (var dataType in DataTypes)
@@ -50,11 +52,11 @@
             <input type="text" class="form-control" @bind="@CategoryAttribute.ValidationRegex" disabled="@Disabled">
         </div>
         <hr />
-        
+
         <div class="card">
             <h5 class="card-header">
                 <label>RegexDescriptions</label>
-                <a @onclick="@AddRegexDescription" class="btn btn-primary" hidden="@Disabled">Add</a>
+                <a @onclick="@AddRegexDescription" class="btn btn-primary float-lg-right" hidden="@Disabled">Add</a>
             </h5>
             <div class="card-body">
                 @if (CategoryAttribute.RegexDescriptions != null)
@@ -104,7 +106,7 @@
         <br />
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">PresentationType</span>
+                <span class="input-group-text" id="basic-addon1" style="background-color:@VisualizeValidation.PresentationTypeNotUndefined(CategoryAttribute.PresentationType)">PresentationType</span>
             </div>
             <select class="form-control" @bind="@CategoryAttribute.PresentationType" disabled="@Disabled">
 
@@ -129,7 +131,7 @@
         <div class="card">
             <h5 class="card-header">
                 <label>PossibleValues</label>
-                <a @onclick="@AddPossibleValue" class="btn btn-primary" hidden="@Disabled">Add</a>
+                <a @onclick="@AddPossibleValue" class="btn btn-primary float-lg-right" hidden="@Disabled">Add</a>
             </h5>
             <div class="card-body">
                 @if (CategoryAttribute.PossibleValues != null)

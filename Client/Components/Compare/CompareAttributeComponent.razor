@@ -25,7 +25,7 @@
                         @if (GetEditedLanguageEntryVersion(laguageEntry, Edited.LanguageEntries) != null)
                         {
                             <div class="card">
-                                <CompareLanguageEntryComponent Original="laguageEntry" Edited="GetEditedLanguageEntryVersion(laguageEntry, Edited.LanguageEntries)"></CompareLanguageEntryComponent>
+                                <CompareLanguageEntryComponent Original="laguageEntry" Edited="GetEditedLanguageEntryVersion(laguageEntry, Edited.LanguageEntries)" IsPossibleValue="true"></CompareLanguageEntryComponent>
                             </div>
                         }
                         else
@@ -151,7 +151,7 @@
                 {
                     @foreach (var possibleValue in Original.PossibleValues)
                     {
-                        @if (GetEditedLanguageEntryVersion(possibleValue, Edited.RegexDescriptions) != null)
+                        @if (GetEditedLanguageEntryVersion(possibleValue, Edited.PossibleValues) != null)
                         {
                             <div class="card">
                                 <CompareLanguageEntryComponent Original="possibleValue" Edited="GetEditedPossibleValueVersion(possibleValue)"></CompareLanguageEntryComponent>

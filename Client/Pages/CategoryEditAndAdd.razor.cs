@@ -39,7 +39,7 @@ namespace CategoryManegementTool.Client.Pages
             "LanguageEntries must contain Languages: German and English!",
             "LanguageEntry Text can't be empty!",
             "LanguageEntry Language can't be Undefined!",
-            "LanguageEntries Language each can't be used more than once!",
+            "LanguageEntries Language each can't be used more than once, except in PossibleValues",
             "___",
             "If Attributes not empty:",
             "RegexDescriptions can't be emty if ValidationRegex is not null!",
@@ -130,17 +130,26 @@ namespace CategoryManegementTool.Client.Pages
                         .First();
                     ApplicationCacheService.AllCategories.Remove(category);
                     ApplicationCacheService.AllCategories.Add(Category);
-                    if(ApplicationCacheService.EditedCategories.Count() > 0)
+
+
+                    var editedCategory = ApplicationCacheService.EditedCategories
+                    .Where(category => category.Id == Category.Id)
+                    .ToList();
+                    if (editedCategory.Count() > 0)
                     {
-                        var editedCategory = ApplicationCacheService.EditedCategories
-                        .Where(category => category.Id == Category.Id)
-                        .ToList();
-                        if (editedCategory.Count() > 0)
-                        {
-                            ApplicationCacheService.EditedCategories.Remove(editedCategory.First());
-                        }
+                        ApplicationCacheService.EditedCategories.Remove(editedCategory.First());
+
                     }
                     ApplicationCacheService.EditedCategories.Add(Category);
+
+                    var addedCategory = ApplicationCacheService.AddedCategories
+                        .Where(category => category.Id == Category.Id)
+                        .ToList();
+                    if (addedCategory.Count() > 0)
+                    {
+                        ApplicationCacheService.AddedCategories.Remove(addedCategory.First());
+                        ApplicationCacheService.AddedCategories.Add(Category);
+                    }
                 }
                 NavigationManager.NavigateTo("/");
             }
