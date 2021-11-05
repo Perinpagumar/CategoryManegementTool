@@ -27,7 +27,7 @@ namespace CategoryManegementTool.Client.Components.Compare
 
         private List<Category> DeletedCategories = ApplicationCacheService.DeletedCategories;
 
-        protected override void OnInitializedAsync()
+        protected override void OnInitialized()
         {
             Categories = ApplicationCacheService.AllCategories
                 .Where(category => !ApplicationCacheService.EditedCategories.Contains(category))

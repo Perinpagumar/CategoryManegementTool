@@ -24,8 +24,14 @@ namespace CategoryManegementTool.Client.Pages
 
         private string Status { get; set; } = "New Added";
 
+        private bool _shouldRenderer { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
+            ApplicationCacheService.OriginalCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("original"));
+            ApplicationCacheService.EditedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("edited"));
+            ApplicationCacheService.DeletedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("deleted"));
+            RenderWholePage();
             if (ApplicationCacheService.OriginalCategories.Count() > 0)
             {
                 var originalCategory = ApplicationCacheService.OriginalCategories
@@ -38,6 +44,17 @@ namespace CategoryManegementTool.Client.Pages
                     GetStatus();
                 }
             }
+        }
+
+        protected override bool ShouldRender()
+        {
+            return _shouldRenderer || base.ShouldRender();
+        }
+
+        public void RenderWholePage()
+        {
+            _shouldRenderer = true;
+            StateHasChanged();
         }
 
         private void GetStatus() 

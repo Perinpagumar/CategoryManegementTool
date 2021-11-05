@@ -1,9 +1,12 @@
 using Blazored.LocalStorage;
+using CategoryManegementTool.Client.Services;
 using CategoryManegementTool.Shared.Models;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -14,6 +17,8 @@ namespace CategoryManegementTool.Client
 {
     public class Program
     {
+        private static Blazored.LocalStorage.ILocalStorageService localStore;
+
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -23,6 +28,5 @@ namespace CategoryManegementTool.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) }).AddBlazoredLocalStorage();
             await builder.Build().RunAsync();
         }
-
     }
 }

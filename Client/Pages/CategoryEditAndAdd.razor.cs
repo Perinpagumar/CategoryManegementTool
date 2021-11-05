@@ -49,7 +49,11 @@ namespace CategoryManegementTool.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            ApplicationCacheService.AllCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("all"));
+            ApplicationCacheService.EditedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("edited"));
+            ApplicationCacheService.AddedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("added"));
             ApplicationCacheService.SelectedCategory = new();
+            RenderWholePage();
 
             if (CategoryId == null)
             {
@@ -100,7 +104,7 @@ namespace CategoryManegementTool.Client.Pages
             if(!IsAdd && Category.ParrentCategoryId != null)
             {
                 NavigationManager.NavigateTo("/categories/edit/" + Category.ParrentCategoryId);
-                _ = OnInitializedAsync();
+                OnInitializedAsync();
                 RenderWholePage();
             }
         }
@@ -154,9 +158,6 @@ namespace CategoryManegementTool.Client.Pages
                         ApplicationCacheService.AddedCategories.Add(Category);
                     }
                 }
-                await localStore.RemoveItemAsync("all");
-                await localStore.RemoveItemAsync("edited");
-                await localStore.RemoveItemAsync("added");
                 await localStore.SetItemAsync("all", JsonConvert.SerializeObject(ApplicationCacheService.AllCategories));
                 await localStore.SetItemAsync("edited", JsonConvert.SerializeObject(ApplicationCacheService.EditedCategories));
                 await localStore.SetItemAsync("added", JsonConvert.SerializeObject(ApplicationCacheService.AddedCategories));

@@ -15,7 +15,7 @@ namespace CategoryManegementTool.Client.Pages
 
         private Category Category { get; set; } = new();
 
-        protected override void OnInitializedAsync()
+        protected override void OnInitialized()
         {
             var category = ApplicationCacheService.AllCategories
                 .Where(category => category.Id == CategoryId)
