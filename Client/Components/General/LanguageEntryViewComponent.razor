@@ -16,7 +16,6 @@
                     <option value="@language">@language</option>
                 }
             </select>
-            <ValidationMessage For=@( () => LanguageEntry.Language ) />
         </div>
         <br />
         <div class="input-group mb-3">
@@ -24,7 +23,6 @@
                 <span class="input-group-text" id="basic-addon1" style="background-color: @VisualizeValidation.TextNotEmpty(LanguageEntry.Text)">Text</span>
             </div>
             <input type="text" class="form-control" @bind-value="@LanguageEntry.Text" disabled="@Disabled">
-            <ValidationMessage For=@( () => LanguageEntry.Text ) />
         </div>
         <br hidden="@IsLanguageEntry" />
         <div class="input-group mb-3" hidden="@IsLanguageEntry">

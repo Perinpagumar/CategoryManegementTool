@@ -21,9 +21,9 @@ namespace CategoryManegementTool.Client.Pages
                 .Where(category => category.Id == CategoryId)
                 .ToList();
 
-            if (category != null)
+            if (category.Count() > 0)
             {
-                Category = category.First();
+                Category = category.First().Clone();
             }
             else
             {
@@ -31,7 +31,7 @@ namespace CategoryManegementTool.Client.Pages
                 .Where(category => category.Id == CategoryId)
                 .ToList();
 
-                if (deletedCategory != null)
+                if (deletedCategory.Count() > 0)
                 {
                     Category = deletedCategory.First().Clone();
                 }

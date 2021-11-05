@@ -27,21 +27,28 @@ namespace CategoryManegementTool.Client.Components.Compare
 
         private List<Category> DeletedCategories = ApplicationCacheService.DeletedCategories;
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
+            var deleted = ApplicationCacheService.DeletedCategories.Select(c => c.Id);
+            var edited = ApplicationCacheService.EditedCategories.Select(c => c.Id);
+            var added = ApplicationCacheService.AddedCategories.Select(c => c.Id);
+
             Categories = ApplicationCacheService.AllCategories
-                .Where(category => !ApplicationCacheService.EditedCategories.Contains(category))
-                .Where(category => !ApplicationCacheService.AddedCategories.Contains(category))
+                .Where(c => !edited.Contains(c.Id))
+                .Where(c => !added.Contains(c.Id))
+                .Where(c => !deleted.Contains(c.Id))
                 .ToList();
 
             EditedCategories = ApplicationCacheService.EditedCategories
-                .Where(category => !ApplicationCacheService.DeletedCategories.Contains(category))
+                .Where(c => !added.Contains(c.Id))
+                .Where(c => !deleted.Contains(c.Id))
                 .ToList();
 
             AddedCategories = ApplicationCacheService.AddedCategories
-                .Where(category => !ApplicationCacheService.EditedCategories.Contains(category))
-                .Where(category => !ApplicationCacheService.DeletedCategories.Contains(category))
+                .Where(c => !edited.Contains(c.Id))
+                .Where(c => !deleted.Contains(c.Id))
                 .ToList();
+            await RenderWholePage.InvokeAsync();
         }
     }
 }

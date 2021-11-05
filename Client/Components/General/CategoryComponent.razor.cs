@@ -68,6 +68,8 @@ namespace CategoryManegementTool.Client.Components.General
                 ApplicationCacheService.DeletedCategories.Remove(category);
                 ApplicationCacheService.AllCategories.Add(category);
             }
+            await localStore.SetItemAsync("all", JsonConvert.SerializeObject(ApplicationCacheService.AllCategories));
+            await localStore.SetItemAsync("deleted", JsonConvert.SerializeObject(ApplicationCacheService.DeletedCategories));
             await RenderWholePage.InvokeAsync();
         }
 
