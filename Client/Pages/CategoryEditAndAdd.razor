@@ -3,6 +3,7 @@
 @page "/categories/add/{ParrentCategoryId}"
 @using CategoryManegementTool.Client.Components.General
 @using CategoryManegementTool.Client.Services
+@inject Blazored.LocalStorage.ILocalStorageService localStore
 
 <div>
     <h3>Category Edit/Add</h3>
@@ -76,7 +77,7 @@
         </div>
     </div>
     <hr />
-    <a @onclick="SaveChanges" class="btn btn-primary float-right">Save</a>
+    <a @onclick="SaveChangesAsync" class="btn btn-primary float-right">Save</a>
     <a @onclick="CancelChanges" class="btn btn-primary float-right" style="margin-right:10px">Cancel</a>
     <br />
 </div>

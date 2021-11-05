@@ -2,6 +2,7 @@
 using CategoryManegementTool.Client.Services;
 using CategoryManegementTool.Shared.Models;
 using Microsoft.AspNetCore.Components;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,10 @@ namespace CategoryManegementTool.Client.Components.General
                 ApplicationCacheService.AllCategories.Remove(category);
                 ApplicationCacheService.DeletedCategories.Add(category);
             }
+            await localStore.RemoveItemAsync("all");
+            await localStore.RemoveItemAsync("deleted");
+            await localStore.SetItemAsync("all", JsonConvert.SerializeObject(ApplicationCacheService.AllCategories));
+            await localStore.SetItemAsync("deleted", JsonConvert.SerializeObject(ApplicationCacheService.DeletedCategories));
             await RenderWholePage.InvokeAsync();
         }
 

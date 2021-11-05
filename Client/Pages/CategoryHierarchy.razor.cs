@@ -1,7 +1,11 @@
-﻿using CategoryManegementTool.Client.Services;
+﻿using Blazored.LocalStorage;
+using CategoryManegementTool.Client.Services;
 using CategoryManegementTool.Shared.Models;
+using Microsoft.AspNetCore.Components;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CategoryManegementTool.Client.Pages
 {
@@ -17,6 +21,51 @@ namespace CategoryManegementTool.Client.Pages
         private bool IsCompare { get; set; } = false;
 
         private readonly string newRootCategory = "null";
+
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
+
+        public async Task UpdateLocalStorage()
+        {
+            if (string.IsNullOrEmpty(await localStore.GetItemAsync<string>("original")))
+            {
+                await localStore.SetItemAsync("original", "[]");
+            }
+            if (string.IsNullOrEmpty(await localStore.GetItemAsync<string>("all")))
+            {
+                await localStore.SetItemAsync("all", "[]");
+            }
+            if (string.IsNullOrEmpty(await localStore.GetItemAsync<string>("edited")))
+            {
+                await localStore.SetItemAsync("edited", "[]");
+            }
+            if (string.IsNullOrEmpty(await localStore.GetItemAsync<string>("added")))
+            {
+                await localStore.SetItemAsync("added", "[]");
+            }
+            if (string.IsNullOrEmpty(await localStore.GetItemAsync<string>("deleted")))
+            {
+                await localStore.SetItemAsync("deleted", "[]");
+            }
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            await UpdateLocalStorage();
+            ApplicationCacheService.OriginalCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("original"));
+            ApplicationCacheService.AllCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("all"));
+            ApplicationCacheService.EditedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("edited"));
+            ApplicationCacheService.AddedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("added"));
+            ApplicationCacheService.DeletedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("deleted"));
+            Categories = ApplicationCacheService.AllCategories;
+            RenderWholePage();
+        }
+
+        public async void ClearLocalStorage()
+        {
+            await localStore.ClearAsync();
+            await OnInitializedAsync();
+        }
 
         private List<Category> GetRootCategories()
         {
@@ -124,7 +173,7 @@ namespace CategoryManegementTool.Client.Pages
                         break;
                 }
                 IsNotMain = true;
-                OnInitialized();
+                base.OnInitialized();
                 RenderWholePage();
             }
         }

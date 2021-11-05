@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
 
 namespace CategoryManegementTool.Client.Services
 {
@@ -17,6 +18,8 @@ namespace CategoryManegementTool.Client.Services
 
         public static Language MainLanguage { get; set; } = Language.German;
         public static Category SelectedCategory { get; set; } = new();
+
+        public static ILocalStorageService LocalStorageService { get; set; }
 
         public static List<Category> GetCategoriesFromAllLists()
         {

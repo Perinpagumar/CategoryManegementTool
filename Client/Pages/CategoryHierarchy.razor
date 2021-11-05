@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using CategoryManegementTool.Client.Components.General
 @using CategoryManegementTool.Client.Components.Compare
+@inject Blazored.LocalStorage.ILocalStorageService localStore
 
 <div class="input-group">
     <h3 style="margin-right:20px">Category Management Tool</h3>
@@ -18,6 +19,7 @@
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
         </svg>
     </a>
+    <a @onclick="ClearLocalStorage" class="btn btn-primary" style="margin-right:10px">Reset</a>
 </div>
 <hr />
 <div hidden="@IsNotMain">
@@ -56,3 +58,7 @@
 <hr />
 <a href="/categories/export/@List" class="btn btn-primary float-right">Export</a>
 <a href="/categories/import" class="btn btn-primary float-right" style="margin-right:20px">Import</a>
+
+@code{
+    
+}

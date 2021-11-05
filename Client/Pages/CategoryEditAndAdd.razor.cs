@@ -1,6 +1,7 @@
 ﻿using CategoryManegementTool.Client.Services;
 using CategoryManegementTool.Shared.Models;
 using Microsoft.AspNetCore.Components;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace CategoryManegementTool.Client.Pages
         [Inject]
         HttpClient HttpClient { get; set; }
 
-    private readonly List<string> Validation = new(new string[]{
+        private readonly List<string> Validation = new(new string[]{
             "General Validation",
             "LanguageEntries must contain Languages: German and English!",
             "LanguageEntry Text can't be empty!",
@@ -43,7 +44,8 @@ namespace CategoryManegementTool.Client.Pages
             "___",
             "If Attributes not empty:",
             "RegexDescriptions can't be emty if ValidationRegex is not null!",
-            "PresentatioType can't be Undefined"});
+            "PresentatioType can't be Undefined"
+        });
 
         protected override async Task OnInitializedAsync()
         {
@@ -71,6 +73,7 @@ namespace CategoryManegementTool.Client.Pages
             }
 
             NotValidDialogShow = true;
+            RenderWholePage();
         }
 
         protected override bool ShouldRender()
@@ -114,7 +117,7 @@ namespace CategoryManegementTool.Client.Pages
             ApplicationCacheService.SelectedCategory.CategoryAttributes.Add(attribute);
         }
 
-        private void SaveChanges()
+        private async Task SaveChangesAsync()
         {
             if (Category.IsValid())
             {
@@ -151,6 +154,12 @@ namespace CategoryManegementTool.Client.Pages
                         ApplicationCacheService.AddedCategories.Add(Category);
                     }
                 }
+                await localStore.RemoveItemAsync("all");
+                await localStore.RemoveItemAsync("edited");
+                await localStore.RemoveItemAsync("added");
+                await localStore.SetItemAsync("all", JsonConvert.SerializeObject(ApplicationCacheService.AllCategories));
+                await localStore.SetItemAsync("edited", JsonConvert.SerializeObject(ApplicationCacheService.EditedCategories));
+                await localStore.SetItemAsync("added", JsonConvert.SerializeObject(ApplicationCacheService.AddedCategories));
                 NavigationManager.NavigateTo("/");
             }
             else

@@ -2,6 +2,7 @@
 using CategoryManegementTool.Client.Services;
 using CategoryManegementTool.Shared.Models;
 using Microsoft.AspNetCore.Components;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace CategoryManegementTool.Client.Pages
 
         private string Status { get; set; } = "New Added";
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
             if (ApplicationCacheService.OriginalCategories.Count() > 0)
             {
@@ -50,7 +51,7 @@ namespace CategoryManegementTool.Client.Pages
                 {
                     EditedCategory = editedCategory.First().Clone();
                     Hidden = false;
-                    Status = "Edited";
+                    Status += " Edited";
                 }
             }
 
@@ -61,7 +62,7 @@ namespace CategoryManegementTool.Client.Pages
                 .ToList();
                 if (deletedCategory.Count() > 0)
                 {
-                    Status += " & Deleted";
+                    Status += " Deleted";
                 }
             }
         }

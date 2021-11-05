@@ -17,7 +17,7 @@ namespace CategoryManegementTool.Client.Pages
         [Inject]
         NavigationManager NavigationManager { get; set; }
 
-        private void ImportCategories()
+        private async Task ImportCategoriesAsync()
         {
             var newCategories = JsonConvert.DeserializeObject<List<Category>>(InputJson);
             var allCategories = ApplicationCacheService.GetCategoriesFromAllLists();
@@ -44,6 +44,9 @@ namespace CategoryManegementTool.Client.Pages
                 {
                     ApplicationCacheService.OriginalCategories.Add(category);
                     ApplicationCacheService.AllCategories.Add(category);
+
+                    await localStore.SetItemAsync("original", JsonConvert.SerializeObject(ApplicationCacheService.OriginalCategories));
+                    await localStore.SetItemAsync("all", JsonConvert.SerializeObject(ApplicationCacheService.AllCategories));
                 }
             }
             NavigationManager.NavigateTo("/");

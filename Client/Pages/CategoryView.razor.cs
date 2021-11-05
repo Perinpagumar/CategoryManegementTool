@@ -15,25 +15,25 @@ namespace CategoryManegementTool.Client.Pages
 
         private Category Category { get; set; } = new();
 
-        protected override void OnInitialized()
+        protected override void OnInitializedAsync()
         {
             var category = ApplicationCacheService.AllCategories
-                .Where(category => category.Id.ToString() == CategoryId)
-                .First();
+                .Where(category => category.Id == CategoryId)
+                .ToList();
 
             if (category != null)
             {
-                Category = category;
+                Category = category.First();
             }
             else
             {
                 var deletedCategory = ApplicationCacheService.DeletedCategories
-                .Where(category => category.Id.ToString() == CategoryId)
-                .First();
+                .Where(category => category.Id == CategoryId)
+                .ToList();
 
                 if (deletedCategory != null)
                 {
-                    Category = deletedCategory.Clone();
+                    Category = deletedCategory.First().Clone();
                 }
             }
         }
