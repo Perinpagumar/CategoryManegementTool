@@ -1,6 +1,7 @@
 ﻿using CategoryManegementTool.Client.Services;
 using CategoryManegementTool.Shared.Models;
 using Microsoft.AspNetCore.Components;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,10 @@ namespace CategoryManegementTool.Client.Pages
 
         private Category Category { get; set; } = new();
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
+            ApplicationCacheService.AllCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("all"));
+            ApplicationCacheService.DeletedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("deleted"));
             var category = ApplicationCacheService.AllCategories
                 .Where(category => category.Id == CategoryId)
                 .ToList();

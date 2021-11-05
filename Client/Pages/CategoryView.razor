@@ -1,6 +1,7 @@
 ﻿@page  "/categories/view"
 @page "/categories/view/{CategoryId}"
 @using CategoryManegementTool.Client.Components.General
+@inject Blazored.LocalStorage.ILocalStorageService localStore
 
 <h3>Category View</h3>
 <div class="input-group mb-3">
