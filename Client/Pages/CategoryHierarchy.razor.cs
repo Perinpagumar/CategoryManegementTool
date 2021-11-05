@@ -25,7 +25,24 @@ namespace CategoryManegementTool.Client.Pages
         [Inject]
         NavigationManager NavigationManager { get; set; }
 
-        public async Task UpdateLocalStorage()
+        protected override async Task OnInitializedAsync()
+        {
+            await UpdateLocalStorage();
+            await ReadLocalStorage();
+            Categories = ApplicationCacheService.AllCategories;
+            RenderWholePage();
+        }
+
+        private async Task ReadLocalStorage()
+        {
+            ApplicationCacheService.OriginalCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("original"));
+            ApplicationCacheService.AllCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("all"));
+            ApplicationCacheService.EditedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("edited"));
+            ApplicationCacheService.AddedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("added"));
+            ApplicationCacheService.DeletedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("deleted"));
+        }
+
+        private async Task UpdateLocalStorage()
         {
             if (string.IsNullOrEmpty(await localStore.GetItemAsync<string>("original")))
             {
@@ -49,19 +66,7 @@ namespace CategoryManegementTool.Client.Pages
             }
         }
 
-        protected override async Task OnInitializedAsync()
-        {
-            await UpdateLocalStorage();
-            ApplicationCacheService.OriginalCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("original"));
-            ApplicationCacheService.AllCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("all"));
-            ApplicationCacheService.EditedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("edited"));
-            ApplicationCacheService.AddedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("added"));
-            ApplicationCacheService.DeletedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("deleted"));
-            Categories = ApplicationCacheService.AllCategories;
-            RenderWholePage();
-        }
-
-        public async void ClearLocalStorage()
+        private async void ClearLocalStorage()
         {
             await localStore.ClearAsync();
             await OnInitializedAsync();
