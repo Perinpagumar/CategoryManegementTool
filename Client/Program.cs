@@ -17,10 +17,9 @@ namespace CategoryManegementTool.Client
 {
     public class Program
     {
-        private static Blazored.LocalStorage.ILocalStorageService localStore;
-
         public static async Task Main(string[] args)
         {
+
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
