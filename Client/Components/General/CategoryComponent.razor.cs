@@ -37,7 +37,7 @@ namespace CategoryManegementTool.Client.Components.General
         {
             if (IsDeleted)
             {
-                var list = ApplicationCacheService.DeletedCategories.Where(category => category.Id == Category.ParrentCategoryId).ToList();
+                var list = ApplicationCacheService.DeletedCategories.Where(category => category.Id == Category.ParentCategoryId).ToList();
                 return list.Count() > 0
                     ? true
                     : false;
@@ -79,11 +79,11 @@ namespace CategoryManegementTool.Client.Components.General
             var childCategories = new List<Category>();
             if (IsDeleted)
             {
-                allCategories.AddRange(ApplicationCacheService.DeletedCategories.Where(category => category.ParrentCategoryId == thisCategory.Id.ToString()).ToList());
+                allCategories.AddRange(ApplicationCacheService.DeletedCategories.Where(category => category.ParentCategoryId == thisCategory.Id.ToString()).ToList());
             }
             else
             {
-                allCategories.AddRange(ApplicationCacheService.AllCategories.Where(category => category.ParrentCategoryId == thisCategory.Id.ToString()).ToList());
+                allCategories.AddRange(ApplicationCacheService.AllCategories.Where(category => category.ParentCategoryId == thisCategory.Id.ToString()).ToList());
             }
 
             if (allCategories.Count() > 0)

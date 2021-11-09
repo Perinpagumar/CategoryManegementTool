@@ -15,7 +15,7 @@ namespace CategoryManegementTool.Shared.Models
         public string Id { get; set; }
 
         public List<LanguageEntry> LanguageEntries { get; set; } = new();
-        public string ParrentCategoryId { get; set; }
+        public string ParentCategoryId { get; set; }
         public List<CategoryAttribute> CategoryAttributes { get; set; } = new();
 
         public string GetTextFromLanguage(Language language) 

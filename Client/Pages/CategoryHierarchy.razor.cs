@@ -74,7 +74,7 @@ namespace CategoryManegementTool.Client.Pages
 
         private List<Category> GetRootCategories()
         {
-            return Categories.Where(category => category.ParrentCategoryId == null).ToList();
+            return Categories.Where(category => category.ParentCategoryId == null).ToList();
         }
 
         private bool _shouldRenderer { get; set; }

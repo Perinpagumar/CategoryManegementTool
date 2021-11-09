@@ -62,7 +62,7 @@ namespace CategoryManegementTool.Client.Pages
                     ParrentCategoryId = null;
                 }
                 ApplicationCacheService.SelectedCategory.Id = await GetObjectId();
-                ApplicationCacheService.SelectedCategory.ParrentCategoryId = ParrentCategoryId;
+                ApplicationCacheService.SelectedCategory.ParentCategoryId = ParrentCategoryId;
                 IsAdd = true;
             }
             else
@@ -73,6 +73,23 @@ namespace CategoryManegementTool.Client.Pages
                 if (category != null)
                 {
                     ApplicationCacheService.SelectedCategory = category.Clone();
+                    foreach (var a in ApplicationCacheService.SelectedCategory.CategoryAttributes ?? new List<CategoryAttribute>())
+                    {
+                        if (a.PossibleValues == null)
+                        {
+                            a.PossibleValues = new();
+                        }
+
+                        if (a.LanguageEntries == null)
+                        {
+                            a.LanguageEntries = new();
+                        }
+
+                        if (a.RegexDescriptions == null)
+                        {
+                            a.RegexDescriptions = new();
+                        }
+                    }
                 }
             }
 
@@ -94,16 +111,16 @@ namespace CategoryManegementTool.Client.Pages
         private List<List<CategoryAttribute>> GetParentAttributes()//Prtotype
         {
             return ApplicationCacheService.AllCategories
-                .Where(category => category.Id.ToString() == Category.ParrentCategoryId)
+                .Where(category => category.Id.ToString() == Category.ParentCategoryId)
                 .Select(category => category.CategoryAttributes)
                 .ToList();
         }
 
         private void ToParentCategory() 
         {
-            if(!IsAdd && Category.ParrentCategoryId != null)
+            if(!IsAdd && Category.ParentCategoryId != null)
             {
-                NavigationManager.NavigateTo("/categories/edit/" + Category.ParrentCategoryId);
+                NavigationManager.NavigateTo("/categories/edit/" + Category.ParentCategoryId);
                 OnInitializedAsync();
                 RenderWholePage();
             }

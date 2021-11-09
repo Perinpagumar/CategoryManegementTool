@@ -19,36 +19,11 @@ namespace CategoryManegementTool.Client.Pages
 
         private async Task ImportCategoriesAsync()
         {
-            var newCategories = JsonConvert.DeserializeObject<List<Category>>(InputJson);
-            var allCategories = ApplicationCacheService.GetCategoriesFromAllLists();
-            foreach(var category in newCategories)
-            {
-                foreach(var a in category.CategoryAttributes)
-                {
-                    if(a.PossibleValues == null)
-                    {
-                        a.PossibleValues = new();
-                    }
-
-                    if (a.LanguageEntries == null)
-                    {
-                        a.LanguageEntries = new();
-                    }
-
-                    if (a.RegexDescriptions == null)
-                    {
-                        a.RegexDescriptions = new();
-                    }
-                }
-                if(!allCategories.Where(c => c.Id == category.Id).Any())
-                {
-                    ApplicationCacheService.OriginalCategories.Add(category);
-                    ApplicationCacheService.AllCategories.Add(category);
-
-                    await localStore.SetItemAsync("original", JsonConvert.SerializeObject(ApplicationCacheService.OriginalCategories));
-                    await localStore.SetItemAsync("all", JsonConvert.SerializeObject(ApplicationCacheService.AllCategories));
-                }
-            }
+            var newCategories = RemoveDuplicates();
+            ApplicationCacheService.OriginalCategories.AddRange(newCategories);
+            ApplicationCacheService.AllCategories.AddRange(newCategories);
+            await localStore.SetItemAsync("original", JsonConvert.SerializeObject(ApplicationCacheService.OriginalCategories));
+            await localStore.SetItemAsync("all", JsonConvert.SerializeObject(ApplicationCacheService.AllCategories));
             NavigationManager.NavigateTo("/");
         }
 
@@ -58,6 +33,24 @@ namespace CategoryManegementTool.Client.Pages
             await e.File.OpenReadStream().CopyToAsync(ms);
             var bytes = ms.ToArray();
             InputJson = System.Text.Encoding.UTF8.GetString(bytes);
+        }
+
+        private List<Category> RemoveDuplicates()
+        {
+            var newCategories = JsonConvert.DeserializeObject<List<Category>>(InputJson);
+            var allCategories = ApplicationCacheService.GetCategoriesFromAllLists();
+            var filteredCategories = new List<Category>();
+            foreach (var category in newCategories)
+            {
+                filteredCategories.AddRange(allCategories.Where(c => c.Id == category.Id).ToList());
+            }
+
+            foreach (var category in filteredCategories)
+            {
+                newCategories.Remove(category);
+            }
+
+            return newCategories;
         }
     }
 }

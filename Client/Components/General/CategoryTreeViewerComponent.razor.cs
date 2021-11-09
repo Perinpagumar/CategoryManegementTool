@@ -31,7 +31,7 @@ namespace CategoryManegementTool.Client.Components.General
 
         private List<Category> GetChilldCategories(string parentCategoryId)
         {
-            return AllCategories.Where(category => category.ParrentCategoryId == parentCategoryId).ToList();
+            return AllCategories.Where(category => category.ParentCategoryId == parentCategoryId).ToList();
         }
 
         private void DeleteCategory(Category category)

@@ -43,7 +43,7 @@ namespace CategoryManegementTool.Client.Pages
         private List<List<CategoryAttribute>> GetParentAttributes()//Prtotype
         {
             return ApplicationCacheService.AllCategories
-                .Where(category => category.Id.ToString() == Category.ParrentCategoryId)
+                .Where(category => category.Id.ToString() == Category.ParentCategoryId)
                 .Select(category => category.CategoryAttributes)
                 .ToList();
         }
