@@ -98,7 +98,7 @@ namespace CategoryManegementTool.Shared.Models
 
         private bool CategoryAttributesAreValid() 
         {
-            foreach(var attribute in CategoryAttributes) 
+            foreach(var attribute in CategoryAttributes ?? new List<CategoryAttribute>()) 
             {
                 if (attribute.IsValid() == false)
                 {

@@ -19,11 +19,14 @@ namespace CategoryManegementTool.Client.Pages
 
         private async Task ImportCategoriesAsync()
         {
-            var newCategories = RemoveDuplicates();
-            ApplicationCacheService.OriginalCategories.AddRange(newCategories);
-            ApplicationCacheService.AllCategories.AddRange(newCategories);
+            var newCategories = JsonConvert.DeserializeObject<List<Category>>(InputJson); ;
+            ApplicationCacheService.OriginalCategories = newCategories;
+            ApplicationCacheService.AllCategories = newCategories;
             await localStore.SetItemAsync("original", JsonConvert.SerializeObject(ApplicationCacheService.OriginalCategories));
             await localStore.SetItemAsync("all", JsonConvert.SerializeObject(ApplicationCacheService.AllCategories));
+            await localStore.SetItemAsStringAsync("edited", "[]");
+            await localStore.SetItemAsStringAsync("added", "[]");
+            await localStore.SetItemAsStringAsync("deleted", "[]");
             NavigationManager.NavigateTo("/");
         }
 
@@ -33,24 +36,6 @@ namespace CategoryManegementTool.Client.Pages
             await e.File.OpenReadStream().CopyToAsync(ms);
             var bytes = ms.ToArray();
             InputJson = System.Text.Encoding.UTF8.GetString(bytes);
-        }
-
-        private List<Category> RemoveDuplicates()
-        {
-            var newCategories = JsonConvert.DeserializeObject<List<Category>>(InputJson);
-            var allCategories = ApplicationCacheService.GetCategoriesFromAllLists();
-            var filteredCategories = new List<Category>();
-            foreach (var category in newCategories)
-            {
-                filteredCategories.AddRange(allCategories.Where(c => c.Id == category.Id).ToList());
-            }
-
-            foreach (var category in filteredCategories)
-            {
-                newCategories.Remove(category);
-            }
-
-            return newCategories;
         }
     }
 }

@@ -42,19 +42,22 @@
     </div>
     <br />
 
-    <div class="card">
+    <div class="card" hidden="@IsAdd">
         <h5 class="card-header">
             <label>Parent Attributes</label>
         </h5>
         <div class="card-body">
             @foreach (var parentAttributes in GetParentAttributes())
             {
-                @foreach (var parentAttribute in parentAttributes)
+                @if (parentAttributes != null)
                 {
-                    <div class="card" hidden="@IsAdd">
-                        <AttributeComponent CategoryAttribute="parentAttribute" Disabled="true" RenderWholePage="@RenderWholePage"></AttributeComponent>
-                    </div>
-                    <br />
+                    @foreach (var parentAttribute in parentAttributes)
+                    {
+                        <div class="card" hidden="@IsAdd">
+                            <AttributeComponent CategoryAttribute="parentAttribute" Disabled="true" RenderWholePage="@RenderWholePage"></AttributeComponent>
+                        </div>
+                        <br />
+                    }
                 }
             }
         </div>
