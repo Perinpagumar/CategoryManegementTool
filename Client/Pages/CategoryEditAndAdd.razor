@@ -67,12 +67,15 @@
             <a @onclick="AddCategoryAttributeAsync" class="btn btn-primary float-lg-right">Add</a>
         </h5>
         <div class="card-body">
-            @foreach (var thisAttribute in Category.CategoryAttributes)
+            @if (Category.CategoryAttributes != null)
             {
-                <div class="card">
-                    <AttributeComponent CategoryAttribute="thisAttribute" Disabled="false" RenderWholePage="@RenderWholePage"></AttributeComponent>
-                </div>
-                <br />
+                @foreach (var thisAttribute in Category.CategoryAttributes)
+                {
+                    <div class="card">
+                        <AttributeComponent CategoryAttribute="thisAttribute" Disabled="false" RenderWholePage="@RenderWholePage"></AttributeComponent>
+                    </div>
+                    <br />
+                }
             }
         </div>
     </div>

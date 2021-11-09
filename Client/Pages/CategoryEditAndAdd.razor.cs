@@ -136,6 +136,7 @@ namespace CategoryManegementTool.Client.Pages
             var attribute = new CategoryAttribute();
             attribute.Id = await GetObjectId();
             ApplicationCacheService.SelectedCategory.CategoryAttributes.Add(attribute);
+            RenderWholePage();
         }
 
         private async Task SaveChangesAsync()
@@ -205,14 +206,13 @@ namespace CategoryManegementTool.Client.Pages
         private async Task<string> GetObjectId()
         {
             string id = await HttpClient.GetStringAsync("/objectid");
-            if(!ApplicationCacheService.AllCategories.Where(c=> c.Id == id).Any())
+            if(ApplicationCacheService.GetCategoriesFromAllLists().Where(c => c.Id == id).Any())
             {
-                if(ApplicationCacheService.AllCategories.Where(c => c.CategoryAttributes.Any(a => a.Id == id)).Any())
+                if(ApplicationCacheService.GetCategoriesFromAllLists().Where(c => c.CategoryAttributes.Any(a => a.Id == id)).Any())
                 {
-                    await GetObjectId();
+                    id = await GetObjectId();
                 }
             }
-
             return id;
         }
     }
