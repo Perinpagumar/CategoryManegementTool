@@ -21,25 +21,35 @@
         @foreach (var languageEntry in Category.LanguageEntries)
         {
             <div class="row">
-                <div class="col-6">
-                    <div class="card">
-                        <LanguageEntryViewComponent LanguageEntry="languageEntry" Disabled="true" IsLanguageEntry="true"></LanguageEntryViewComponent>
-                    </div>
-                </div>
-                <div class="col-6">
-                    @if (GetEditedLanguageEntryVersion(languageEntry) != null)
+                @if (GetEditedLanguageEntryVersion(languageEntry) != null)
+                {
+                    @if (languageEntry.Text != GetEditedLanguageEntryVersion(languageEntry).Text)
                     {
-                        <div class="card">
-                            <CompareLanguageEntryComponent Original="languageEntry" Edited="@GetEditedLanguageEntryVersion(languageEntry)"></CompareLanguageEntryComponent>
+                        <div class="col-6">
+                            <div class="card">
+                                <CompareLanguageEntryComponent Original="languageEntry" Edited="@GetEditedLanguageEntryVersion(languageEntry)"></CompareLanguageEntryComponent>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <CompareLanguageEntryComponent Original="languageEntry" Edited="@GetEditedLanguageEntryVersion(languageEntry)"></CompareLanguageEntryComponent>
+                            </div>
                         </div>
                     }
-                    else
-                    {
+                }
+                else
+                {
+                    <div class="col-6">
+                        <div class="card">
+                            <LanguageEntryViewComponent LanguageEntry="languageEntry" Disabled="true" IsLanguageEntry="true"></LanguageEntryViewComponent>
+                        </div>
+                    </div>
+                    <div class="col-6">
                         <div class="card" style="background-color:red">
                             <LanguageEntryViewComponent LanguageEntry="@new()" Disabled="true" IsLanguageEntry="true"></LanguageEntryViewComponent>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
             </div>
         }
         @foreach (var languageEntry in GetAddedLanguageEntries())
@@ -67,36 +77,50 @@
         @foreach (var thisAttribute in Category.CategoryAttributes)
         {
             <div class="row">
-                <div class="col-6">
-                    <div class="card">
-                        <h5 class="card-header">
-                            <label>@thisAttribute.GetTextFromLanguage(MainLanguage)</label>
-                        </h5>
-                        <AttributeComponent CategoryAttribute="thisAttribute" Disabled="true"></AttributeComponent>
-                    </div>
-                </div>
-                <div class="col-6">
-                    @if (GetEditedCategoryAttributeVersion(thisAttribute) != null)
+
+                @if (GetEditedCategoryAttributeVersion(thisAttribute) != null)
+                {
+                    @if (AttributeParametersAreNotEqual(thisAttribute, GetEditedCategoryAttributeVersion(thisAttribute)))
                     {
+                        <div class="col-6">
+                            <div class="card">
+                                <h5 class="card-header">
+                                    <label>@thisAttribute.GetTextFromLanguage(MainLanguage)</label>
+                                </h5>
+                                <CompareAttributeComponent Original="thisAttribute" Edited="GetEditedCategoryAttributeVersion(thisAttribute)"></CompareAttributeComponent>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <h5 class="card-header">
+                                    <label>@thisAttribute.GetTextFromLanguage(MainLanguage)</label>
+                                </h5>
+                                <CompareAttributeComponent Original="thisAttribute" Edited="GetEditedCategoryAttributeVersion(thisAttribute)"></CompareAttributeComponent>
+                            </div>
+                        </div>
+                        <br />
+                    }
+                }
+                else
+                {
+                    <div class="col-6">
                         <div class="card">
                             <h5 class="card-header">
                                 <label>@thisAttribute.GetTextFromLanguage(MainLanguage)</label>
                             </h5>
-                            <CompareAttributeComponent Original="thisAttribute" Edited="GetEditedCategoryAttributeVersion(thisAttribute)"></CompareAttributeComponent>
+                            <AttributeComponent CategoryAttribute="thisAttribute" Disabled="true"></AttributeComponent>
                         </div>
-                        <br />
-                    }
-                    else
-                    {
+                    </div>
+                    <div class="col-6">
                         <div class="card" style="background-color:red">
                             <h5 class="card-header">
                                 <label>@thisAttribute.GetTextFromLanguage(MainLanguage)</label>
                             </h5>
                             <AttributeComponent CategoryAttribute="@new()" Disabled="true"></AttributeComponent>
                         </div>
-                        <br />
-                    }
-                </div>
+                    </div>
+                    <br />
+                }
             </div>
         }
         @foreach (var thisAttribute in GetAddedAttributes())

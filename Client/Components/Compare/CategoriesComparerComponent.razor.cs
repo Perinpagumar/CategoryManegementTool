@@ -46,6 +46,59 @@ namespace CategoryManegementTool.Client.Components.Compare
                 .FirstOrDefault();
         }
 
+        private bool AttributeParametersAreNotEqual(CategoryAttribute original, CategoryAttribute edited)
+        {
+            return original.DataType != edited.DataType ||
+            original.ValidationRegex != edited.ValidationRegex ||
+            original.IsIncludedInPreview != edited.IsIncludedInPreview ||
+            original.UnitType != edited.UnitType ||
+            original.IsRequired != edited.IsRequired ||
+            original.PresentationType != edited.PresentationType ||
+            original.IsFilter != edited.IsFilter ||
+            LanguageEntrisAreNotEqual(original.LanguageEntries, edited.LanguageEntries) ||
+            LanguageEntrisAreNotEqual(original.RegexDescriptions, edited.RegexDescriptions) ||
+            PossibleValuesAreNotEqual(original.PossibleValues, edited.PossibleValues);
+        }
+
+        private bool LanguageEntrisAreNotEqual(List<LanguageEntry> original, List<LanguageEntry> edited)
+        {
+            if (edited.Count() > 0)
+            {
+                foreach (var languageEntry in original ?? new List<LanguageEntry>())
+                {
+                    var entry = edited.Where(l => l.Language == languageEntry.Language).ToList();
+                    if (entry.Count() > 0)
+                    {
+                        if (entry.First().Text != languageEntry.Text)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool PossibleValuesAreNotEqual(List<LanguageEntry> original, List<LanguageEntry> edited)
+        {
+            if (edited.Count() > 0)
+            {
+                foreach (var languageEntry in original ?? new List<LanguageEntry>())
+                {
+                    var entry = edited.Where(l => l.Language == languageEntry.Language && l.Value == languageEntry.Value).ToList();
+                    if (entry.Count() > 0)
+                    {
+                        if (entry.First().Text != languageEntry.Text)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
         private List<CategoryAttribute> GetAddedAttributes()
         {
             var added = new List<CategoryAttribute>();

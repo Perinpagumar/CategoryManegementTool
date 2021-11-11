@@ -31,25 +31,9 @@ namespace CategoryManegementTool.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            switch (List)
-            {
-                case "All":
-                    Categories = ApplicationCacheService.AllCategories;
-                    break;
-
-                case "Edited":
-                    Categories = ApplicationCacheService.EditedCategories;
-                    break;
-
-                case "Added":
-                    Categories = ApplicationCacheService.AddedCategories;
-                    break;
-
-                case "Deleted":
-                    Categories = ApplicationCacheService.DeletedCategories;
-                    break;
-            }
-                await ExportCategories();
+            ApplicationCacheService.AllCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("all"));
+            Categories = ApplicationCacheService.AllCategories;
+            await ExportCategories();
         }
         private async Task ExportCategories()
         {
@@ -58,5 +42,4 @@ namespace CategoryManegementTool.Client.Pages
             OutputJson = System.Text.Json.JsonSerializer.Serialize(Categories, options);
         }  
     }
-    
 }

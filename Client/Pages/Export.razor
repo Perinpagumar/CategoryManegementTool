@@ -1,4 +1,5 @@
-﻿@page "/categories/export/{List}"
+﻿@page "/categories/export"
+@inject Blazored.LocalStorage.ILocalStorageService localStore
 
 <h3>Export</h3>
 <textarea @bind="OutputJson" class="col-12" rows="25" disabled></textarea>
