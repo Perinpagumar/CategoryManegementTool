@@ -55,7 +55,7 @@
                     @foreach (var parentAttribute in parentAttributes)
                     {
                         <div class="card" hidden="@IsAdd">
-                            <AttributeViewerComponent CategoryAttribute="parentAttribute" IsView="true" RenderWholePage="@RenderWholePage"></AttributeViewerComponent>
+                            <AttributeViewerComponent CategoryAttribute="parentAttribute" IsView="true" RenderWholePage="@RenderWholePage" ToParentCategory="ToParentCategory" IsParent="true"></AttributeViewerComponent>
                         </div>
                         <br />
                     }

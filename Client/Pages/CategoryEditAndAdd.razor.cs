@@ -115,7 +115,7 @@ namespace CategoryManegementTool.Client.Pages
             if(!IsAdd && Category.ParentCategoryId != null)
             {
                 NavigationManager.NavigateTo("/categories/edit/" + Category.ParentCategoryId);
-                OnInitialized();
+                OnInitializedAsync();
                 RenderWholePage();
             }
         }

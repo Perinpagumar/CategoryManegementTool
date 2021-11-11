@@ -18,7 +18,13 @@ namespace CategoryManegementTool.Client.Components.General
         public EventCallback RenderWholePage { get; set; }
 
         [Parameter]
+        public EventCallback ToParentCategory { get; set; }
+
+        [Parameter]
         public bool IsView { get; set; }
+
+        [Parameter]
+        public bool IsParent { get; set; }
 
         private bool _showViewAttribute { get; set; }
 
@@ -40,6 +46,14 @@ namespace CategoryManegementTool.Client.Components.General
         {
             ApplicationCacheService.SelectedCategory.CategoryAttributes.Remove(CategoryAttribute);
             await RenderWholePage.InvokeAsync();
+        }
+
+        private async Task RedirectToParent()
+        {
+            if (IsParent)
+            {
+                await ToParentCategory.InvokeAsync();
+            }
         }
     }
 }
