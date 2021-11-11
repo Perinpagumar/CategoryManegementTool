@@ -1,4 +1,5 @@
-﻿using CategoryManegementTool.Shared.Models;
+﻿using CategoryManegementTool.Client.Services;
+using CategoryManegementTool.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -31,9 +32,10 @@ namespace CategoryManegementTool.Client.Components.General
             _showEditAttribute = true;
         }
 
-        private void DeleteAttribute()
+        private async Task DeleteAttributeAsync()
         {
-
+            ApplicationCacheService.SelectedCategory.CategoryAttributes.Remove(CategoryAttribute);
+            await RenderWholePage.InvokeAsync();
         }
     }
 }

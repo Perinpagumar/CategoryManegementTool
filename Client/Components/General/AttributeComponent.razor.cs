@@ -49,11 +49,5 @@ namespace CategoryManegementTool.Client.Components.General
             ApplicationCacheService.SelectedCategory.CategoryAttributes
             .First(attribute => attribute.Id == CategoryAttribute.Id).PossibleValues.Add(new LanguageEntry());
         }
-
-        private async Task DeleteAsync()
-        {
-            ApplicationCacheService.SelectedCategory.CategoryAttributes.Remove(CategoryAttribute);
-            await RenderWholePage.InvokeAsync();
-        }
     }
 }
