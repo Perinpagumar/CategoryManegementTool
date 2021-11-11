@@ -71,14 +71,14 @@ namespace CategoryManegementTool.Client.Pages
                     ApplicationCacheService.SelectedCategory = category.Clone();
                     foreach (var a in ApplicationCacheService.SelectedCategory.CategoryAttributes ?? new List<CategoryAttribute>())
                     {
-                        if (a.PossibleValues == null)
-                        {
-                            a.PossibleValues = new();
-                        }
-
                         if (a.LanguageEntries == null)
                         {
                             a.LanguageEntries = new();
+                        }
+
+                        if (a.PossibleValues == null)
+                        {
+                            a.PossibleValues = new();
                         }
 
                         if (a.RegexDescriptions == null)

@@ -22,6 +22,9 @@ namespace CategoryManegementTool.Client.Components.General
         public bool Disabled { get; set; }
 
         [Parameter]
+        public bool IsAdd { get; set; }
+
+        [Parameter]
         public bool IsLanguageEntry { get; set; }
 
         [Parameter]
@@ -33,21 +36,30 @@ namespace CategoryManegementTool.Client.Components.General
 
         private async Task DeleteAsync()
         {
-            if (AttributeId != null)
+            if(ApplicationCacheService.NewCategoryAttribute.Id == null)
             {
-                var attribute = ApplicationCacheService.SelectedCategory.CategoryAttributes
-                    .Where(attribute => attribute.Id == AttributeId)
-                    .First();
-                if (attribute != null)
+                if (AttributeId == null)
                 {
-                    attribute.LanguageEntries.Remove(LanguageEntry);
-                    attribute.RegexDescriptions.Remove(LanguageEntry);
-                    attribute.PossibleValues.Remove(LanguageEntry);
+                    var attribute = ApplicationCacheService.SelectedCategory.CategoryAttributes
+                        .Where(attribute => attribute.Id == AttributeId)
+                        .First();
+                    if (attribute != null)
+                    {
+                        attribute.LanguageEntries.Remove(LanguageEntry);
+                        attribute.RegexDescriptions.Remove(LanguageEntry);
+                        attribute.PossibleValues.Remove(LanguageEntry);
+                    }
+                }
+                else
+                {
+                    ApplicationCacheService.SelectedCategory.LanguageEntries.Remove(LanguageEntry);
                 }
             }
             else
             {
-                ApplicationCacheService.SelectedCategory.LanguageEntries.Remove(LanguageEntry);
+                ApplicationCacheService.NewCategoryAttribute.LanguageEntries.Remove(LanguageEntry);
+                ApplicationCacheService.NewCategoryAttribute.RegexDescriptions.Remove(LanguageEntry);
+                ApplicationCacheService.NewCategoryAttribute.PossibleValues.Remove(LanguageEntry);
             }
             await RenderWholePage.InvokeAsync();
         }

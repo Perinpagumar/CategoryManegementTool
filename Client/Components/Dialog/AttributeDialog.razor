@@ -12,7 +12,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <AttributeComponent CategoryAttribute="CategoryAttribute" Disabled="IsView" RenderWholePage="RenderWholePage"></AttributeComponent>
+                @if (IsAdd)
+                {
+                    <AttributeComponent CategoryAttribute="NewCategoryAttribute" Disabled="IsView" IsAdd="IsAdd" RenderWholePage="RenderWholePage"></AttributeComponent>
+                }
+                else
+                {
+                    <AttributeComponent CategoryAttribute="CategoryAttribute" Disabled="IsView" IsAdd="IsAdd" RenderWholePage="RenderWholePage"></AttributeComponent>
+                }
             </div>
             <div class="modal-footer">
                 <a @onclick="CloseAsync" class="btn btn-secondary" data-dismiss="modal" hidden="@(!IsView)">Close</a>

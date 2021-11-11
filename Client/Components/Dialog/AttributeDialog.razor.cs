@@ -31,6 +31,8 @@ namespace CategoryManegementTool.Client.Components.Dialog
 
         private string Title { get; set; } = "Edit Attribute";
 
+        public CategoryAttribute NewCategoryAttribute { get => ApplicationCacheService.NewCategoryAttribute; }
+
         private CategoryAttribute Clone { get; set; }
 
         private bool _showValidation { get; set; }
@@ -51,7 +53,7 @@ namespace CategoryManegementTool.Client.Components.Dialog
             if(IsAdd)
             {
                 Title = "Add Attribute";
-                CategoryAttribute.Id = await GetObjectId();
+                ApplicationCacheService.NewCategoryAttribute.Id = await GetObjectId();
             }
 
             if(IsView)
@@ -60,11 +62,13 @@ namespace CategoryManegementTool.Client.Components.Dialog
             }
 
             Clone = CategoryAttribute.Clone();
+            await RenderWholePage.InvokeAsync();
         }
 
         private async Task CloseAsync()
         {
             ResetAttribute();
+            ApplicationCacheService.NewCategoryAttribute = new();
             await OnModalClose.InvokeAsync();
         }
 
@@ -72,11 +76,10 @@ namespace CategoryManegementTool.Client.Components.Dialog
         {
             if(CategoryAttribute.IsValid())
             {
-                if (IsAdd)
+                if(IsAdd)
                 {
                     ApplicationCacheService.SelectedCategory.CategoryAttributes.Add(CategoryAttribute);
                 }
-
                 await OnModalClose.InvokeAsync();
                 await RenderWholePage.InvokeAsync();
             }

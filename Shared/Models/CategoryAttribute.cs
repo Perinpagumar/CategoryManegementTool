@@ -35,10 +35,12 @@ namespace CategoryManegementTool.Shared.Models
 
         public string GetTextFromLanguage(Language language)
         {
-            return this.LanguageEntries.Where(entry => entry.Language == language)
+            var text = this.LanguageEntries.Where(entry => entry.Language == language)
                 .Select(entry => entry.Text)
-                .ToList()
-                .ElementAt(0);
+                .ToList();
+            return (text.Count() > 0)
+                ? text.First()
+                : " ";
         }
 
         public bool SerchAllData(string input)

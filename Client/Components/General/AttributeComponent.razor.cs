@@ -18,6 +18,9 @@ namespace CategoryManegementTool.Client.Components.General
         public bool Disabled { get; set; }
 
         [Parameter]
+        public bool IsAdd { get; set; }
+
+        [Parameter]
         public EventCallback RenderWholePage { get; set; }
 
         private List<DataType> DataTypes = Enum.GetValues(typeof(DataType))
@@ -34,20 +37,41 @@ namespace CategoryManegementTool.Client.Components.General
 
         private void AddLanguageEntry()
         {
-            ApplicationCacheService.SelectedCategory.CategoryAttributes
-            .First(attribute => attribute.Id == CategoryAttribute.Id).LanguageEntries.Add(new LanguageEntry());
+            if (IsAdd)
+            {
+                ApplicationCacheService.NewCategoryAttribute.LanguageEntries.Add(new LanguageEntry());
+            }
+            else
+            {
+                ApplicationCacheService.SelectedCategory.CategoryAttributes
+                .First(attribute => attribute.Id == CategoryAttribute.Id).LanguageEntries.Add(new LanguageEntry());
+            }
         }
 
         private void AddRegexDescription()
         {
-            ApplicationCacheService.SelectedCategory.CategoryAttributes
+            if (IsAdd)
+            {
+                ApplicationCacheService.NewCategoryAttribute.RegexDescriptions.Add(new LanguageEntry());
+            }
+            else
+            {
+                ApplicationCacheService.SelectedCategory.CategoryAttributes
             .First(attribute => attribute.Id == CategoryAttribute.Id).RegexDescriptions.Add(new LanguageEntry());
+            }
         }
 
         private void AddPossibleValue()
         {
-            ApplicationCacheService.SelectedCategory.CategoryAttributes
+            if (IsAdd)
+            {
+                ApplicationCacheService.NewCategoryAttribute.PossibleValues.Add(new LanguageEntry());
+            }
+            else
+            {
+                ApplicationCacheService.SelectedCategory.CategoryAttributes
             .First(attribute => attribute.Id == CategoryAttribute.Id).PossibleValues.Add(new LanguageEntry());
+            }
         }
     }
 }
