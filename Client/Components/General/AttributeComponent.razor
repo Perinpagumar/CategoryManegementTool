@@ -20,7 +20,7 @@
                     @foreach (var laguageEntry in CategoryAttribute.LanguageEntries)
                     {
                         <div class="card">
-                            <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id" LanguageEntry="laguageEntry" Disabled="@Disabled" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
+                            <LanguageEntryViewComponent Attribute="@CategoryAttribute" LanguageEntry="laguageEntry" Disabled="@Disabled" IsLanguageEntry="true" RenderWholePage="@RenderWholePage" IsAdd="IsAdd"></LanguageEntryViewComponent>
                         </div>
                     }
                 }
@@ -59,7 +59,7 @@
                     @foreach (var regexDescription in CategoryAttribute.RegexDescriptions)
                     {
                         <div class="card">
-                            <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id" LanguageEntry="regexDescription" Disabled="@Disabled" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
+                            <LanguageEntryViewComponent Attribute="@CategoryAttribute" LanguageEntry="regexDescription" Disabled="@Disabled" IsLanguageEntry="true" RenderWholePage="@RenderWholePage"  IsAdd="IsAdd"></LanguageEntryViewComponent>
                         </div>
                     }
                 }
@@ -134,7 +134,7 @@
                     @foreach (var possibleValue in CategoryAttribute.PossibleValues)
                     {
                         <div class="card">
-                            <LanguageEntryViewComponent AttributeId="@CategoryAttribute.Id" LanguageEntry="possibleValue" Disabled="@Disabled" RenderWholePage="@RenderWholePage"></LanguageEntryViewComponent>
+                            <LanguageEntryViewComponent Attribute="@CategoryAttribute" LanguageEntry="possibleValue" Disabled="@Disabled" RenderWholePage="@RenderWholePage"  IsAdd="IsAdd"></LanguageEntryViewComponent>
                         </div>
                     }
                 }

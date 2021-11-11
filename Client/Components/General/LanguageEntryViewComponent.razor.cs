@@ -16,7 +16,7 @@ namespace CategoryManegementTool.Client.Components.General
         public LanguageEntry LanguageEntry { get; set; }
 
         [Parameter]
-        public string AttributeId { get; set; }
+        public CategoryAttribute Attribute { get; set; }
 
         [Parameter]
         public bool Disabled { get; set; }
@@ -36,19 +36,13 @@ namespace CategoryManegementTool.Client.Components.General
 
         private async Task DeleteAsync()
         {
-            if(ApplicationCacheService.NewCategoryAttribute.Id == null)
+            if(!IsAdd)
             {
-                if (AttributeId == null)
+                if (Attribute != null)
                 {
-                    var attribute = ApplicationCacheService.SelectedCategory.CategoryAttributes
-                        .Where(attribute => attribute.Id == AttributeId)
-                        .First();
-                    if (attribute != null)
-                    {
-                        attribute.LanguageEntries.Remove(LanguageEntry);
-                        attribute.RegexDescriptions.Remove(LanguageEntry);
-                        attribute.PossibleValues.Remove(LanguageEntry);
-                    }
+                        Attribute.LanguageEntries.Remove(LanguageEntry);
+                        Attribute.RegexDescriptions.Remove(LanguageEntry);
+                        Attribute.PossibleValues.Remove(LanguageEntry);
                 }
                 else
                 {

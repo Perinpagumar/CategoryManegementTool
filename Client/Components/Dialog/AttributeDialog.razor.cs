@@ -74,12 +74,13 @@ namespace CategoryManegementTool.Client.Components.Dialog
 
         private async Task SaveAsync()
         {
-            if(CategoryAttribute.IsValid())
+            if(CategoryAttribute.IsValid() || NewCategoryAttribute.IsValid())
             {
                 if(IsAdd)
                 {
-                    ApplicationCacheService.SelectedCategory.CategoryAttributes.Add(CategoryAttribute);
+                    ApplicationCacheService.SelectedCategory.CategoryAttributes.Add(NewCategoryAttribute);
                 }
+                ApplicationCacheService.NewCategoryAttribute = new();
                 await OnModalClose.InvokeAsync();
                 await RenderWholePage.InvokeAsync();
             }
