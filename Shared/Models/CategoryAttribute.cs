@@ -1,5 +1,6 @@
 ﻿
 using CategoryManagementTool.Shared.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,11 @@ namespace CategoryManegementTool.Shared.Models
                 }
             }
             return false;
+        }
+
+        public CategoryAttribute Clone()
+        {
+            return JsonConvert.DeserializeObject<CategoryAttribute>(JsonConvert.SerializeObject(this));
         }
 
         public bool IsValid()

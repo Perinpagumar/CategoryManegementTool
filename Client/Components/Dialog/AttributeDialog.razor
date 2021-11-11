@@ -1,0 +1,53 @@
+﻿@using CategoryManegementTool.Client.Components.General
+
+<div class="modal show modal-dialog-scrollable" tabindex="-1" role="dialog" aria-hidden="true" style="display:block">
+    <div class="modal-dialog" role="document" style="min-height:95%; min-width:80%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>
+                    <label>@Title</label>
+                </h5>
+                <button @onclick="CloseAsync" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <AttributeComponent CategoryAttribute="CategoryAttribute" Disabled="IsView" RenderWholePage="RenderWholePage"></AttributeComponent>
+            </div>
+            <div class="modal-footer">
+                <a @onclick="CloseAsync" class="btn btn-secondary" data-dismiss="modal" hidden="@(!IsView)">Close</a>
+                <a @onclick="CloseAsync" class="btn btn-secondary" data-dismiss="modal" hidden="@IsView">Cancel</a>
+                <a @onclick="SaveAsync" class="btn btn-secondary" data-dismiss="modal" hidden="@IsView">Save</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop fade show"></div>
+
+@if (_showValidation)
+{
+    <div class="modal show" tabindex="-1" role="dialog" aria-hidden="true" style="display:block; margin-top: 5%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Category is not Valid</h5>
+                    <button @onclick="CloseValidation" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body">
+                        @foreach (var rule in Validation)
+                        {
+                            <p>@rule</p>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button @onclick="CloseValidation" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}

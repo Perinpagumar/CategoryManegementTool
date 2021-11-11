@@ -27,7 +27,8 @@ namespace CategoryManegementTool.Client.Pages
 
         private bool IsAdd { get; set; } = false;
 
-        private bool NotValidDialogShow { get; set; } = true;
+        private bool _showValidation { get; set; }
+        private bool _showAddAttribute { get; set; }
 
         [Inject]
         NavigationManager NavigationManager { get; set; }
@@ -36,15 +37,10 @@ namespace CategoryManegementTool.Client.Pages
         HttpClient HttpClient { get; set; }
 
         private readonly List<string> Validation = new(new string[]{
-            "General Validation",
             "LanguageEntries must contain Languages: German and English!",
             "LanguageEntry Text can't be empty!",
             "LanguageEntry Language can't be Undefined!",
-            "LanguageEntries Language each can't be used more than once, except in PossibleValues",
-            "___",
-            "If Attributes not empty:",
-            "RegexDescriptions can't be emty if ValidationRegex is not null!",
-            "PresentatioType can't be Undefined"
+            "LanguageEntries Language each can't be used more than once"
         });
 
         protected override async Task OnInitializedAsync()
@@ -92,8 +88,6 @@ namespace CategoryManegementTool.Client.Pages
                     }
                 }
             }
-
-            NotValidDialogShow = true;
             RenderWholePage();
         }
 
@@ -121,7 +115,7 @@ namespace CategoryManegementTool.Client.Pages
             if(!IsAdd && Category.ParentCategoryId != null)
             {
                 NavigationManager.NavigateTo("/categories/edit/" + Category.ParentCategoryId);
-                OnInitializedAsync();
+                OnInitialized();
                 RenderWholePage();
             }
         }
@@ -131,12 +125,9 @@ namespace CategoryManegementTool.Client.Pages
             ApplicationCacheService.SelectedCategory.LanguageEntries.Add(new LanguageEntry());
         }
 
-        private async Task AddCategoryAttributeAsync() 
+        private void AddCategoryAttribute()
         {
-            var attribute = new CategoryAttribute();
-            attribute.Id = await GetObjectId();
-            ApplicationCacheService.SelectedCategory.CategoryAttributes.Add(attribute);
-            RenderWholePage();
+            _showAddAttribute = true;
         }
 
         private async Task SaveChangesAsync()
@@ -153,27 +144,26 @@ namespace CategoryManegementTool.Client.Pages
                     var category = ApplicationCacheService.AllCategories
                         .Where(category => category.Id == Category.Id)
                         .First();
-                    ApplicationCacheService.AllCategories.Remove(category);
-                    ApplicationCacheService.AllCategories.Add(Category);
-
+                    UpdateCategory(category);
 
                     var editedCategory = ApplicationCacheService.EditedCategories
                     .Where(category => category.Id == Category.Id)
                     .ToList();
                     if (editedCategory.Count() > 0)
                     {
-                        ApplicationCacheService.EditedCategories.Remove(editedCategory.First());
-
+                        UpdateCategory(editedCategory.First());
                     }
-                    ApplicationCacheService.EditedCategories.Add(Category);
-
+                    else
+                    {
+                        ApplicationCacheService.EditedCategories.Add(Category);
+                    }
+                    
                     var addedCategory = ApplicationCacheService.AddedCategories
                         .Where(category => category.Id == Category.Id)
                         .ToList();
                     if (addedCategory.Count() > 0)
                     {
-                        ApplicationCacheService.AddedCategories.Remove(addedCategory.First());
-                        ApplicationCacheService.AddedCategories.Add(Category);
+                        UpdateCategory(addedCategory.First());
                     }
                 }
                 await localStore.SetItemAsync("all", JsonConvert.SerializeObject(ApplicationCacheService.AllCategories));
@@ -183,7 +173,7 @@ namespace CategoryManegementTool.Client.Pages
             }
             else
             {
-                TriggerDialog();
+                _showValidation = true;
                 RenderWholePage();
             }
         }
@@ -193,14 +183,15 @@ namespace CategoryManegementTool.Client.Pages
             NavigationManager.NavigateTo("/");
         }
 
-        private void TriggerDialog()
+        private void CloseValidation()
         {
-            NotValidDialogShow = false;
+            _showValidation = false;
         }
 
-        private void CloseDialog()
+        private void UpdateCategory(Category category)
         {
-            NotValidDialogShow = true;
+            category.LanguageEntries = Category.LanguageEntries;
+            category.CategoryAttributes = Category.CategoryAttributes;
         }
 
         private async Task<string> GetObjectId()

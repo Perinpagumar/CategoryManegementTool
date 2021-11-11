@@ -1,10 +1,5 @@
 ﻿@using CategoryManegementTool.Client.Services
-
-<EditForm Model="@CategoryAttribute">
-    <h5 class="card-header">
-        <label>@CategoryAttribute.Id</label>
-        <a @onclick="DeleteAsync" class="btn btn-primary float-lg-right" hidden="@Disabled">Delete</a>
-    </h5>
+<div class="card">
     <div class="card-body">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -146,4 +141,6 @@
             </div>
         </div>
     </div>
-</EditForm>
+</div>
+
+

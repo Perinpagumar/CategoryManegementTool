@@ -1,35 +1,33 @@
 ﻿@using CategoryManegementTool.Client.Services
 
-<EditForm Model="@LanguageEntry">
-    <h5 class="card-header">
-        <label>@LanguageEntry.Text</label>
-        <a @onclick="@DeleteAsync" class="btn btn-primary float-lg-right" hidden="@Disabled">Delete</a>
-    </h5>
-    <div class="card-body">
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1" style="background-color:@VisualizeValidation.LanguageNotUndefined(LanguageEntry.Language)">Language</span>
-            </div>
-            <select class="form-control" @bind="@LanguageEntry.Language" disabled="@Disabled">
-                @foreach (var language in Languages)
-                {
-                    <option value="@language">@language</option>
-                }
-            </select>
+<h5 class="card-header">
+    <label>@LanguageEntry.Text</label>
+    <a @onclick="@DeleteAsync" class="btn btn-primary float-lg-right" hidden="@Disabled">Delete</a>
+</h5>
+<div class="card-body">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color:@VisualizeValidation.LanguageNotUndefined(LanguageEntry.Language)">Language</span>
         </div>
-        <br />
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1" style="background-color: @VisualizeValidation.TextNotEmpty(LanguageEntry.Text)">Text</span>
-            </div>
-            <input type="text" class="form-control" @bind-value="@LanguageEntry.Text" disabled="@Disabled">
-        </div>
-        <br hidden="@IsLanguageEntry" />
-        <div class="input-group mb-3" hidden="@IsLanguageEntry">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1" style="background-color: @VisualizeValidation.TextNotEmpty(LanguageEntry.Value)">Value</span>
-            </div>
-            <input type="text" class="form-control" @bind-value="@LanguageEntry.Value" disabled="@Disabled">
-        </div>
+        <select class="form-control" @bind="@LanguageEntry.Language" disabled="@Disabled">
+            @foreach (var language in Languages)
+            {
+                <option value="@language">@language</option>
+            }
+        </select>
     </div>
-</EditForm>
+    <br />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color: @VisualizeValidation.TextNotEmpty(LanguageEntry.Text)">Text</span>
+        </div>
+        <input type="text" class="form-control" @bind-value="@LanguageEntry.Text" disabled="@Disabled">
+    </div>
+    <br hidden="@IsLanguageEntry" />
+    <div class="input-group mb-3" hidden="@IsLanguageEntry">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="background-color: @VisualizeValidation.TextNotEmpty(LanguageEntry.Value)">Value</span>
+        </div>
+        <input type="text" class="form-control" @bind-value="@LanguageEntry.Value" disabled="@Disabled">
+    </div>
+</div>

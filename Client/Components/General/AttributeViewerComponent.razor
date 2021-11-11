@@ -1,0 +1,22 @@
+﻿@using CategoryManegementTool.Client.Components.Dialog
+
+<div class="card">
+    <div class="card-body">
+        <label>@CategoryAttribute.Id</label>
+        <div class="float-right">
+            <a @onclick="ViewAttribute" class="btn btn-primary" style="margin-left:10px" hidden="@(!IsView)">View</a>
+            <a @onclick="EditAttribute" class="btn btn-primary" style="margin-left:10px" hidden="@IsView">Edit</a>
+            <a @onclick="DeleteAttribute" class="btn btn-primary" style="margin-left:10px" hidden="@IsView">Delete</a>
+        </div>
+    </div>
+</div>
+
+@if (_showViewAttribute)
+{
+    <AttributeDialog CategoryAttribute="CategoryAttribute" IsView="true" RenderWholePage="@RenderWholePage" OnModalClose="() => { _showViewAttribute = false; }"></AttributeDialog>
+}
+
+@if (_showEditAttribute)
+{
+    <AttributeDialog CategoryAttribute="CategoryAttribute" IsView="false" RenderWholePage="@RenderWholePage" OnModalClose="() => { _showEditAttribute = false; }"></AttributeDialog>
+}
