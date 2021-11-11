@@ -48,7 +48,7 @@ namespace CategoryManegementTool.Shared.Models
                 return true;
             }
 
-            foreach (var languageEntry in LanguageEntries)
+            foreach (var languageEntry in LanguageEntries ?? new List<LanguageEntry>())
             {
                 if (languageEntry.SerchAllData(input))
                 {
@@ -93,7 +93,7 @@ namespace CategoryManegementTool.Shared.Models
         {
             if(PossibleValues != null)
             {
-                foreach(var possibleValue in PossibleValues)
+                foreach(var possibleValue in PossibleValues ?? new List<LanguageEntry>())
                 {
                     if (possibleValue.Language == Language.Undefined && string.IsNullOrEmpty(possibleValue.Text) && string.IsNullOrEmpty(possibleValue.Value))
                     {

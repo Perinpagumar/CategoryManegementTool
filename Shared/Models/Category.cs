@@ -39,7 +39,7 @@ namespace CategoryManegementTool.Shared.Models
                 return true;
             }
 
-            foreach(var languageEntry in LanguageEntries) 
+            foreach(var languageEntry in LanguageEntries ?? new List<LanguageEntry>()) 
             {
                 if(languageEntry.SerchAllData(input))
                 {
@@ -47,7 +47,7 @@ namespace CategoryManegementTool.Shared.Models
                 }
             }
 
-            foreach(var attribute in CategoryAttributes) 
+            foreach(var attribute in CategoryAttributes ?? new List<CategoryAttribute>()) 
             {
                 if(attribute.SerchAllData(input))
                 {

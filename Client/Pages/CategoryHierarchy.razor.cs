@@ -155,25 +155,25 @@ namespace CategoryManegementTool.Client.Pages
                 {
                     case "All":
                         Categories = ApplicationCacheService.AllCategories
-                            .Where(category => category.SerchAllData(Search))
+                            .Where(category => category.SerchAllData(Search) == true)
                             .ToList();
                         break;
 
                     case "Edited":
                         Categories = ApplicationCacheService.EditedCategories
-                            .Where(category => category.SerchAllData(Search))
+                            .Where(category => category.SerchAllData(Search) == true)
                             .ToList();
                         break;
 
                     case "Added":
                         Categories = ApplicationCacheService.AddedCategories
-                            .Where(category => category.SerchAllData(Search))
+                            .Where(category => category.SerchAllData(Search) == true)
                             .ToList();
                         break;
 
                     case "Deleted":
                         Categories = ApplicationCacheService.DeletedCategories
-                            .Where(category => category.SerchAllData(Search))
+                            .Where(category => category.SerchAllData(Search) == true)
                             .ToList();
                         break;
                 }

@@ -15,7 +15,8 @@ namespace CategoryManegementTool.Client.Pages
         [Parameter]
         public string CategoryId { get; set; }
 
-        private Language MainLanguage { get; set; } = ApplicationCacheService.MainLanguage;
+        private string CategoryName { get; set; }
+
         private Category Category { get; set; } = new();
 
         private Category EditedCategory { get; set; } = new();
@@ -31,7 +32,6 @@ namespace CategoryManegementTool.Client.Pages
             ApplicationCacheService.OriginalCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("original"));
             ApplicationCacheService.EditedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("edited"));
             ApplicationCacheService.DeletedCategories = JsonConvert.DeserializeObject<List<Category>>(await localStore.GetItemAsync<string>("deleted"));
-            RenderWholePage();
             if (ApplicationCacheService.OriginalCategories.Count() > 0)
             {
                 var originalCategory = ApplicationCacheService.OriginalCategories
@@ -44,6 +44,11 @@ namespace CategoryManegementTool.Client.Pages
                     GetStatus();
                 }
             }
+
+            CategoryName = ApplicationCacheService.GetCategoriesFromAllLists()
+                .Where(c => c.Id == CategoryId)
+                .First().GetTextFromLanguage(ApplicationCacheService.MainLanguage);
+            RenderWholePage();
         }
 
         protected override bool ShouldRender()

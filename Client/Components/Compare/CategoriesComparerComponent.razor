@@ -3,36 +3,19 @@
 <div class="row">
     <div class="col-6">
         <div class="card">
-            <div class="card-body">
-                <h3>Original</h3>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">ID</span>
-                    </div>
-                    <input type="text" class="form-control" @bind="@Category.Id" disabled>
-                </div>
-            </div>
+            <h1 class="text-center">Original</h1>
         </div>
     </div>
-
     <div class="col-6">
         <div class="card">
-            <div class="card-body">
-                <h3>Edited</h3>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">ID</span>
-                    </div>
-                    <input type="text" class="form-control" @bind="@EditedCategory.Id" disabled>
-                </div>
-            </div>
+            <h1 class="text-center">Edited</h1>
         </div>
     </div>
 </div>
 <hr />
 <div class="card">
-    <h5 class="card-header">
-        <label style="align-self:center">LanguageEntries</label>
+    <h5 class="card-header text-center">
+        <label>LanguageEntries</label>
     </h5>
     <div class="card-body">
         @foreach (var languageEntry in Category.LanguageEntries)
@@ -77,29 +60,38 @@
 </div>
 <hr />
 <div class="card">
-    <h5 class="card-header">
-        <label class="align-self-lg-center">CategoryAttributes</label>
+    <h5 class="card-header text-center">
+        <label>CategoryAttributes</label>
     </h5>
     <div class="card-body">
-        @foreach (var attribute in Category.CategoryAttributes)
+        @foreach (var thisAttribute in Category.CategoryAttributes)
         {
             <div class="row">
                 <div class="col-6">
                     <div class="card">
-                        <AttributeComponent CategoryAttribute="attribute" Disabled="true"></AttributeComponent>
+                        <h5 class="card-header">
+                            <label>@thisAttribute.GetTextFromLanguage(MainLanguage)</label>
+                        </h5>
+                        <AttributeComponent CategoryAttribute="thisAttribute" Disabled="true"></AttributeComponent>
                     </div>
                 </div>
                 <div class="col-6">
-                    @if (GetEditedCategoryAttributeVersion(attribute) != null)
+                    @if (GetEditedCategoryAttributeVersion(thisAttribute) != null)
                     {
                         <div class="card">
-                            <CompareAttributeComponent Original="attribute" Edited="GetEditedCategoryAttributeVersion(attribute)"></CompareAttributeComponent>
+                            <h5 class="card-header">
+                                <label>@thisAttribute.GetTextFromLanguage(MainLanguage)</label>
+                            </h5>
+                            <CompareAttributeComponent Original="thisAttribute" Edited="GetEditedCategoryAttributeVersion(thisAttribute)"></CompareAttributeComponent>
                         </div>
                         <br />
                     }
                     else
                     {
                         <div class="card" style="background-color:red">
+                            <h5 class="card-header">
+                                <label>@thisAttribute.GetTextFromLanguage(MainLanguage)</label>
+                            </h5>
                             <AttributeComponent CategoryAttribute="@new()" Disabled="true"></AttributeComponent>
                         </div>
                         <br />
@@ -107,7 +99,7 @@
                 </div>
             </div>
         }
-        @foreach (var attribute in GetAddedAttributes())
+        @foreach (var thisAttribute in GetAddedAttributes())
         {
             <div class="row">
                 <div class="col-6">
@@ -115,10 +107,13 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    @if (attribute != null)
+                    @if (thisAttribute != null)
                     {
                         <div class="card" style="background-color:green">
-                            <AttributeComponent CategoryAttribute="attribute" Disabled="true"></AttributeComponent>
+                            <h5 class="card-header">
+                                <label>@thisAttribute.GetTextFromLanguage(MainLanguage)</label>
+                            </h5>
+                            <AttributeComponent CategoryAttribute="thisAttribute" Disabled="true"></AttributeComponent>
                         </div>
                         <br />
                     }

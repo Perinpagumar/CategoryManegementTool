@@ -1,4 +1,6 @@
-﻿using CategoryManegementTool.Shared.Models;
+﻿using CategoryManagementTool.Shared.Enums;
+using CategoryManegementTool.Client.Services;
+using CategoryManegementTool.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,8 @@ namespace CategoryManegementTool.Client.Components.Compare
 
         [Parameter]
         public Category EditedCategory { get; set; } = new();
+
+        private Language MainLanguage { get; set; } = ApplicationCacheService.MainLanguage;
 
         private LanguageEntry GetEditedLanguageEntryVersion(LanguageEntry languageEntry)
         {
