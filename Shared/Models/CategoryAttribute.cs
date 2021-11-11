@@ -33,6 +33,14 @@ namespace CategoryManegementTool.Shared.Models
 
         public List<LanguageEntry> PossibleValues { get; set; } = new();
 
+        public string GetTextFromLanguage(Language language)
+        {
+            return this.LanguageEntries.Where(entry => entry.Language == language)
+                .Select(entry => entry.Text)
+                .ToList()
+                .ElementAt(0);
+        }
+
         public bool SerchAllData(string input)
         {
             if (this.Id.ToString().ToLower().Contains(input))
