@@ -39,7 +39,11 @@ namespace CategoryManegementTool.Client.Components.Dialog
             "LanguageEntries must contain Languages: German and English!",
             "LanguageEntry Text can't be empty!",
             "LanguageEntry Language can't be Undefined!",
-            "LanguageEntries Language each can't be used more than once"
+            "LanguageEntries Language each can't be used more than once",
+            "___",
+            "If Validationregex is checked:",
+            "Regexdescriptions can't be empty!",
+            "Regexdescriptions Language each can't be used more than once",
         });
 
         protected override async Task OnInitializedAsync()
